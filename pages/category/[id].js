@@ -8,17 +8,17 @@ const CategoryDetails = () => {
     const router = useRouter();
     const { id } = router.query;
     const [Category, setCategory] = useState([])
-    async function GetCategory() {
-        const token = localStorage.getItem("CC_Token")
-        console.log(id)
-        const Data = await axios
-            .get(`http://${baseUrl}api/category/${id}`,
-                { headers: { "Authorization": `Bearer ${token}` } })
-        // await setCategory(Data.data.data.data[0])
-        setCategory(Data.data.data)
-    }
     // console.log(Category)
     useEffect(() => {
+        async function GetCategory() {
+            const token = localStorage.getItem("CC_Token")
+            console.log(id)
+            const Data = await axios
+                .get(`http://${baseUrl}api/category/${id}`,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+            // await setCategory(Data.data.data.data[0])
+            setCategory(Data.data.data)
+        }
         GetCategory()
     }, [])
 

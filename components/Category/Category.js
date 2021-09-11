@@ -32,14 +32,14 @@ const AllCategory = () => {
     const router = useRouter()
     const classes = useStyles();
     const [category, setCategory] = useState([])
-    const Getcategory = async () => {
-        const token = localStorage.getItem("CC_Token")
-        await axios
-            .get(`http://${baseUrl}api/category/`,
-                { headers: { "Authorization": `Bearer ${token}` } })
-            .then((res) => setCategory(res.data))
-    }
     useEffect(() => {
+        const Getcategory = async () => {
+            const token = localStorage.getItem("CC_Token")
+            await axios
+                .get(`http://${baseUrl}api/category/`,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+                .then((res) => setCategory(res.data))
+        }
         Getcategory();
         // console.log(category)
     }, [])

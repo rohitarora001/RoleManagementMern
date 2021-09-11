@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "next dev",
+    "ngrok": "ngrok http 3000",
     "build": "next build",
     "start": "next start -p $PORT",
-    "heroku-postbuild": "npm run build"
+    "lint": "next lint"
   },
   "dependencies": {
     "@material-ui/core": "^4.12.3",

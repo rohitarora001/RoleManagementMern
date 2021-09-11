@@ -63,17 +63,14 @@ const LoginForm = () => {
     const inputPassword = (e) => {
         setPassword(e.target.value)
     }
-    const LoggedIn = () => {
-        router.push('/');
-    }
     const LoginUser = async () => {
         // console.log(baseUrl)
         try {
             const response = await axios
-                .post(`http://${baseUrl}api/auth/signin-user`, {
-                    email,
-                    password,
-                })
+            .post(`http://${baseUrl}api/auth/signin-user`, {
+                email,
+                password,
+            })
             if (response.data.status == "ok" && response.data.token) {
                 const token = response.data.token
                 localStorage.setItem("CC_Token", token);
@@ -84,16 +81,19 @@ const LoginForm = () => {
                 makeToast("error", 'Email or password is invalid');
             }
         }
-
+        
         catch (err) {
             // console.log(err);
             makeToast("error", 'Email or password is invalid');
         };
     }
     useEffect(async () => {
-
+        
         let token = localStorage.getItem("CC_Token", token);
         if (token != null) {
+            const LoggedIn = () => {
+                router.push('/');
+            }
             LoggedIn()
         }
 

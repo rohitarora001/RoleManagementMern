@@ -34,20 +34,20 @@ const useStyles = makeStyles({
 const MyProductHome = () => {
     const classes = useStyles();
     const [Products, setProducts] = useState([]);
-    const getMyProducts = async () => {
-        const token = localStorage.getItem("CC_Token")
-        const user = jwt.verify(token, JWT_SECRET)
-        const id = user.id
-        await axios
-            .get(`http://${baseUrl}api/users/${id}/myproducts`,
-                { headers: { "Authorization": `Bearer ${token}` } })
-            .then((res) => {
-                // console.log(res.data.products)
-                setProducts(res.data.products)
-                // Products.map((r) => console.log(r.name))
-            })
-    }
     useEffect(() => {
+        const getMyProducts = async () => {
+            const token = localStorage.getItem("CC_Token")
+            const user = jwt.verify(token, JWT_SECRET)
+            const id = user.id
+            await axios
+                .get(`http://${baseUrl}api/users/${id}/myproducts`,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+                .then((res) => {
+                    // console.log(res.data.products)
+                    setProducts(res.data.products)
+                    // Products.map((r) => console.log(r.name))
+                })
+        }
         getMyProducts()
     }, [])
     return (

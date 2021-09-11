@@ -39,13 +39,6 @@ const AddProducts = () => {
     const handleClose = () => {
         setOpen(false);
     };
-    const Getcategory = async () => {
-        const token = localStorage.getItem("CC_Token")
-        await axios
-        .get(`http://${baseUrl}api/category/`,
-        { headers: { "Authorization": `Bearer ${token}` } })
-        .then((res) => setCategory(res.data))
-    }
     
     const addCategory = async () => {
         Getcategory()
@@ -58,18 +51,18 @@ const AddProducts = () => {
         const token = localStorage.getItem("CC_Token")
         try{
             await axios
-                .post(`http://${baseUrl}api/products/create`,
-                    Data,
-                    { headers: { "Authorization": `Bearer ${token}` } })
-                    .then((res)=>{
-                        if(res.data.status == "ok")
-                        {
-                            makeToast("success","Product added successfully")
-                            // getProducts()
-                        }
+            .post(`http://${baseUrl}api/products/create`,
+            Data,
+            { headers: { "Authorization": `Bearer ${token}` } })
+            .then((res)=>{
+                if(res.data.status == "ok")
+                {
+                    makeToast("success","Product added successfully")
+                    // getProducts()
+                }
                     })
-        }
-        catch(error)
+                }
+                catch(error)
         {
             console.log(error)
             if(error.message.includes("400"))
@@ -85,6 +78,13 @@ const AddProducts = () => {
         }
     }
     useEffect(()=>{
+        const Getcategory = async () => {
+            const token = localStorage.getItem("CC_Token")
+            await axios
+            .get(`http://${baseUrl}api/category/`,
+            { headers: { "Authorization": `Bearer ${token}` } })
+            .then((res) => setCategory(res.data))
+        }
         Getcategory()
     })
     return (

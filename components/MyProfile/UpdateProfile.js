@@ -19,18 +19,7 @@ const UpdateProfile = () => {
     const [Lastname, setLastname] = useState('');
     const [Email, setEmail] = useState('');
     const [Phone, setPhone] = useState('');
-    const GetCurrentUser = async () => {
-        const token = localStorage.getItem("CC_Token")
-        await axios
-            .get(`http://${baseUrl}api/users/me`,
-                { headers: { "Authorization": `Bearer ${token}` } })
-            .then((res) => {
-                setUser(res.data.data)
-                // setPicUrl(res.data.data.avatar[0])
-            }
-            )
-    }
-
+    
     const updateProfile = async () => {
         // e.preventDefault()
         const data = {
@@ -45,7 +34,7 @@ const UpdateProfile = () => {
         try {
             await axios
                 .patch(`http://${baseUrl}api/users/update-user/${id}`, data,
-                    { headers: { "Authorization": `Bearer ${token}` } })
+                { headers: { "Authorization": `Bearer ${token}` } })
                     .then(res=>console.log(res))
             handleClose()
             makeToast("success", "Profile Updated Successfully")
@@ -59,7 +48,7 @@ const UpdateProfile = () => {
     const handleClickOpen = () => {
         setOpen(true);
     };
-
+    
     const handleClose = () => {
         setOpen(false);
     };
@@ -77,6 +66,17 @@ const UpdateProfile = () => {
     }
     
     useEffect(() => {
+        const GetCurrentUser = async () => {
+            const token = localStorage.getItem("CC_Token")
+            await axios
+                .get(`http://${baseUrl}api/users/me`,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+                .then((res) => {
+                    setUser(res.data.data)
+                    // setPicUrl(res.data.data.avatar[0])
+                }
+                )
+        }
         GetCurrentUser()
     }, [])
     return (

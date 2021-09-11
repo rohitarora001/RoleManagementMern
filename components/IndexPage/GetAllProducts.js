@@ -43,15 +43,15 @@ const GetAllProducts = () => {
             return true
         }
     }
-    const GetProducts = async () => {
-        const token = localStorage.getItem("CC_Token")
-        await axios
-            .get(`http://${baseUrl}api/products`,
-                { headers: { "Authorization": `Bearer ${token}` } })
-            .then((res) => setProducts(res.data))
-    }
-
-    useEffect(async () => {
+    
+    useEffect(() => {
+        const GetProducts = async () => {
+            const token = localStorage.getItem("CC_Token")
+            await axios
+                .get(`http://${baseUrl}api/products`,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+                .then((res) => setProducts(res.data))
+        }
         const goahead = checkLoggedin()
         if (goahead == false) {
             makeToast("error", "You must be logged in")

@@ -6,18 +6,18 @@ const Profile = () => {
     // setUserProfile(user)
     // const [picurl, setPicUrl] = useState('')
     // const [picture, setPicture] = useState('')
-    const GetCurrentUser = async () => {
-        const token = localStorage.getItem("CC_Token")
-        await axios
-            .get(`http://${baseUrl}api/users/me`,
-                { headers: { "Authorization": `Bearer ${token}` } })
-            .then((res) => {
-                setUser(res.data.data)
-                // setPicUrl(res.data.data.avatar[0])
-            }
-            )
-    }
     useEffect(() => {
+        const GetCurrentUser = async () => {
+            const token = localStorage.getItem("CC_Token")
+            await axios
+                .get(`http://${baseUrl}api/users/me`,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+                .then((res) => {
+                    setUser(res.data.data)
+                    // setPicUrl(res.data.data.avatar[0])
+                }
+                )
+        }
         GetCurrentUser()
         // GetCurrentUserImage()
     }, [])
