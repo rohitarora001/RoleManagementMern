@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
+
+html {
+  height: "100%";
+  font-size: "16px";
+}
+body {
+  min-height: "100%";
+  font-family: 'Jost', sans-serif;
+
+}
+#__next {
+height: "100%"; 
+}
