@@ -35,16 +35,16 @@ const RegisterUser = () => {
     const [Phone, setPhone] = useState(false);
     const [Role, setRole] = useState(false);
     const [File, setFile] = useState(false);
-    
+
     const register = async () => {
         // const formData = new FormData();
         const Data = {
-            firstname:FirstName,
-            lastname:LastName,
-            phone:Phone,
-            email:Email,
-            password:Password,
-            role:Role,
+            firstname: FirstName,
+            lastname: LastName,
+            phone: Phone,
+            email: Email,
+            password: Password,
+            role: Role,
         }
         // formData.append('firstname', FirstName);
         // formData.append('lastname', LastName);
@@ -54,11 +54,18 @@ const RegisterUser = () => {
         // formData.append('password', Password);
         // formData.append('avatar', File);
         // console.log(formData)
-        const api = `${baseUrl}api/users/register-user`
-        await axios.post(api,Data)
-        .then((res)=>{
-            console.log(res)
-        })
+        try{
+            await axios.post(`https://role-management-mern.herokuapp.com/api/auth/register-user`, Data)
+                .then((res) => {
+                    if(res.status == 200){
+                        makeToast('success','Successfully Registered')
+                    }
+                })
+        }
+        catch(error){
+            console.log(error)
+            makeToast('error','A user is already registered with same email or phone')
+        }
     }
     const handleClickOpen = () => {
         setOpen(true);
@@ -77,16 +84,6 @@ const RegisterUser = () => {
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Change Password</DialogTitle>
                 <DialogContent>
-                    {/* <Input
-                        autoFocus
-                        id="name"
-                        onChange={(e) => {
-                            setFile(e.target.files[0])
-                        }}
-                        label="Avatar"
-                        type="file"
-                        fullWidth
-                    /> */}
                     <TextField
                         autoFocus
                         margin="dense"

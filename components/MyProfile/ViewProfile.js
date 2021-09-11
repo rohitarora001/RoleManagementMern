@@ -5,7 +5,7 @@ import ChangePassword from './ChangePassword'
 import DeleteUser from './DeleteUser'
 import UpdateProfile from './UpdateProfile'
 import LogOut from './LogOut'
-import Jwt from 'jsonwebtoken'
+import AllUsers from '../AllUsers/AllUsers'
 import axios from 'axios'
 import { baseUrl } from '../../next.config'
 import MyCategory from '../Category/MyCategory'
@@ -13,6 +13,7 @@ import MyProducts from '../Products/MyProducts'
 
 const ViewProfile = () => {
     const [userRole, setUserRole] = useState()
+    const [UserId, setUserId] = useState()
     const getCurrentUser = async () => {
         const token = localStorage.getItem("CC_Token")
         await axios
@@ -20,6 +21,7 @@ const ViewProfile = () => {
                 { headers: { "Authorization": `Bearer ${token}` } })
             .then((res) => {
                 setUserRole(res.data.data.role)
+                setUserId(res.data.data._id)
             }
             )
     }
@@ -37,6 +39,14 @@ const ViewProfile = () => {
                     display: "flex",
                     margin: "auto",
                 }}>
+                    <div style={{
+                        margin: "5px"
+                    }}>
+                        {userRole == 1 ?
+                            <AllUsers />
+                            : null
+                        }
+                    </div>
                     <div style={{
                         margin: "5px"
                     }}>
@@ -66,7 +76,7 @@ const ViewProfile = () => {
                     <div style={{
                         margin: "5px"
                     }}>
-                        <DeleteUser />
+                        <DeleteUser id={UserId} />
                     </div>
                     <div style={{
                         margin: "5px"

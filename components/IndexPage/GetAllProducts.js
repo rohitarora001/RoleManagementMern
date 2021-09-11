@@ -48,7 +48,7 @@ const GetAllProducts = () => {
         await axios
             .get(`http://${baseUrl}api/products`,
                 { headers: { "Authorization": `Bearer ${token}` } })
-            .then((res) => setProducts(res.data.data.data[0]))
+            .then((res) => setProducts(res.data))
     }
 
     useEffect(async () => {

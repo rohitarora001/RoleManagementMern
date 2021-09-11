@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { useRouter } from 'next/router';
-import jwt from 'jsonwebtoken'
-import { baseUrl, JWT_SECRET } from '../../next.config';
+import { baseUrl } from '../../next.config';
 import makeToast from '../../Toaster'
 import axios from 'axios'
-
-const DeleteUser = ({ id }) => {
+const DeleteUser = ({id}) => {
     const [open, setOpen] = useState(false);
-    const router = useRouter();
-
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -20,35 +15,32 @@ const DeleteUser = ({ id }) => {
     const handleClose = () => {
         setOpen(false);
     };
-
-    const deleteAccount = async () => {
+    const deleteUser = async () => {
         try {
             const token = localStorage.getItem("CC_Token")
-
             await axios
                 .delete(`http://${baseUrl}api/users/delete/${id}`,
                     { headers: { "Authorization": `Bearer ${token}` } })
-                .then(() => {
-                    localStorage.removeItem("CC_Token")
-                    makeToast("success", "User deleted")
+                .then((res) => {
+                    if (res.data.status == 200 ) {
+                        makeToast("success", "User updated successfully")
+                        handleClose()
+                    }
                 })
-            router.push('/login')
-            handleClose()
         }
         catch (error) {
-            handleClose()
+            console.log(error)
             makeToast("error", "Something went wrong")
-            console.log(error)            // console.log(error)
         }
-
     }
     return (
-        <div>
-            <Button size="small"
+        <>
+            <Button
+                size="small"
                 variant="outlined"
-                color="secondary"
-                onClick={handleClickOpen}>
-                Delete Account
+                onClick={handleClickOpen}
+            >
+                Delete
             </Button>
             <Dialog
                 open={open}
@@ -56,18 +48,18 @@ const DeleteUser = ({ id }) => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Do you want to delete your account?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{"Do you want to delete this category?"}</DialogTitle>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Back
                     </Button>
                     <Button color="primary" autoFocus
-                        onClick={deleteAccount}>
+                        onClick={deleteUser}>
                         Delete
                     </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </>
     )
 }
 

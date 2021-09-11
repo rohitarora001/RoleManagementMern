@@ -54,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
 const LoginForm = () => {
     const router = useRouter();
     const classes = useStyles();
-    const [email, setEmail] = useState('rohit@gmail.com')
-    const [password, setPassword] = useState('rohitarora')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     // const [token, setToken] = useState(token)
     const inputEmail = (e) => {
         setEmail(e.target.value)

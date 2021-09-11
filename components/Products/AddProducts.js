@@ -46,7 +46,9 @@ const AddProducts = () => {
         { headers: { "Authorization": `Bearer ${token}` } })
         .then((res) => setCategory(res.data))
     }
+    
     const addCategory = async () => {
+        Getcategory()
         const Data = {
             description: Description,
             name: Name,
@@ -54,15 +56,37 @@ const AddProducts = () => {
             category: CategoryId,
         }
         const token = localStorage.getItem("CC_Token")
-        const api = `${baseUrl}api/products/create`
-        await axios
-            .post(api,
-                Data,
-                { headers: { "Authorization": `Bearer ${token}` } })
+        try{
+            await axios
+                .post(`http://${baseUrl}api/products/create`,
+                    Data,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+                    .then((res)=>{
+                        if(res.data.status == "ok")
+                        {
+                            makeToast("success","Product added successfully")
+                            // getProducts()
+                        }
+                    })
+        }
+        catch(error)
+        {
+            console.log(error)
+            if(error.message.includes("400"))
+            {
+                makeToast("warning","Atleast name should be there")
+            }
+        }
+        finally{
+            setCategoryId('')
+            setPrice(0)
+            setDescription('')
+            setName('')
+        }
     }
-    useEffect(() => {
+    useEffect(()=>{
         Getcategory()
-    }, [])
+    })
     return (
         <>
             <Button size="small"
@@ -77,7 +101,7 @@ const AddProducts = () => {
                 Add Products
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Add Product </DialogTitle>
+                <DialogTitle id="form-dialog-title">Add Product</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus

@@ -32,6 +32,7 @@ const UpdateProfile = () => {
     }
 
     const updateProfile = async () => {
+        // e.preventDefault()
         const data = {
             firstname: Firstname,
             lastname: Lastname,
@@ -45,6 +46,7 @@ const UpdateProfile = () => {
             await axios
                 .patch(`http://${baseUrl}api/users/update-user/${id}`, data,
                     { headers: { "Authorization": `Bearer ${token}` } })
+                    .then(res=>console.log(res))
             handleClose()
             makeToast("success", "Profile Updated Successfully")
         }
@@ -143,7 +145,7 @@ const UpdateProfile = () => {
                     </Button>
                     <Button onClick={() => {
                         updateProfile()
-                        router.reload(window.location.pathname)
+                        // router.reload(window.location.pathname)
                         }} color="primary">
                         Update
                     </Button>

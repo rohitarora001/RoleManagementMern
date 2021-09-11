@@ -1,5 +1,5 @@
 module.exports = {
   reactStrictMode: true,
-  baseUrl : "localhost:4000/",
+  baseUrl : "role-management-mern.herokuapp.com/",
   JWT_SECRET:"thelongerthebetter"
 }

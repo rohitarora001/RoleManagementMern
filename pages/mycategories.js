@@ -1,8 +1,8 @@
 import React from 'react'
-import MyProductHome from '../components/Products/MyProductHome'
+import MyCategoryHome from '../components/Category/MyCategoryHome'
 const MyCategories = () => {
     return (
-        <MyProductHome />
+        <MyCategoryHome />
     )
 }
 
