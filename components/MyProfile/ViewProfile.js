@@ -18,7 +18,7 @@ const ViewProfile = () => {
         const getCurrentUser = async () => {
             const token = localStorage.getItem("CC_Token")
             await axios
-                .get(`http://${baseUrl}api/users/me`,
+                .get(`https://${baseUrl}api/users/me`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => {
                     setUserRole(res.data.data.role)

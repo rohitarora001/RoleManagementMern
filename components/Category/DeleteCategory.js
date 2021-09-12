@@ -19,7 +19,7 @@ const DeleteCategory = ({ id }) => {
         try {
             const token = localStorage.getItem("CC_Token")
             await axios
-                .delete(`http://${baseUrl}api/category/delete-category/${id}`,
+                .delete(`https://${baseUrl}api/category/delete-category/${id}`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => {
                     if(res.data.status == "error")

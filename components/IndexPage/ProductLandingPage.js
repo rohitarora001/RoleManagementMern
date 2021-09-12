@@ -13,7 +13,7 @@ const ProductLandingPage = ({ id }) => {
             const token = localStorage.getItem("CC_Token")
             console.log(id)
             const Data = await axios
-                .get(`http://${baseUrl}api/products/${id}`,
+                .get(`https://${baseUrl}api/products/${id}`,
                     { headers: { "Authorization": `Bearer ${token}` } })
             setProduct(Data.data.data.data[0])
             console.log(Data.data.data.data[0])

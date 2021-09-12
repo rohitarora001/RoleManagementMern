@@ -33,7 +33,7 @@ const UpdateProfile = () => {
         const id = user.id;
         try {
             await axios
-                .patch(`http://${baseUrl}api/users/update-user/${id}`, data,
+                .patch(`https://${baseUrl}api/users/update-user/${id}`, data,
                 { headers: { "Authorization": `Bearer ${token}` } })
                     .then(res=>console.log(res))
             handleClose()
@@ -69,7 +69,7 @@ const UpdateProfile = () => {
         const GetCurrentUser = async () => {
             const token = localStorage.getItem("CC_Token")
             await axios
-                .get(`http://${baseUrl}api/users/me`,
+                .get(`https://${baseUrl}api/users/me`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => {
                     setUser(res.data.data)

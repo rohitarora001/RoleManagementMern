@@ -14,7 +14,7 @@ const ProductDetails = () => {
             const token = localStorage.getItem("CC_Token")
             console.log(id)
             const Data = await axios
-                .get(`http://${baseUrl}api/products/${id}`,
+                .get(`https://${baseUrl}api/products/${id}`,
                     { headers: { "Authorization": `Bearer ${token}` } })
             await setProduct(Data.data.data.data[0])
             console.log(Data.data.data.data[0])
@@ -31,7 +31,7 @@ const ProductDetails = () => {
                 product.pictures.map((pic) => {
                     return (
                         <div>
-                            <a><img src={`http://localhost:4000/uploads/${pic}`} /></a>
+                            <a><img src={`https://localhost:4000/uploads/${pic}`} /></a>
                         </div>
                     )
                 })} */}

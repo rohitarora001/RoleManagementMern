@@ -34,7 +34,7 @@ const EditCategory = ({ name, description, id }) => {
         }
         // console.log(data)
         // console.log(id)
-        const api = `http://${baseUrl}api/category/update-category/${id}`
+        const api = `https://${baseUrl}api/category/update-category/${id}`
         console.log(api)
         const res = await axios
             .patch(api, data,

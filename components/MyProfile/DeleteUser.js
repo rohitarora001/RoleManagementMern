@@ -26,7 +26,7 @@ const DeleteUser = ({ id }) => {
             const token = localStorage.getItem("CC_Token")
 
             await axios
-                .delete(`http://${baseUrl}api/users/delete/${id}`,
+                .delete(`https://${baseUrl}api/users/delete/${id}`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then(() => {
                     localStorage.removeItem("CC_Token")

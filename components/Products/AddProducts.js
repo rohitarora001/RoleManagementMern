@@ -51,7 +51,7 @@ const AddProducts = () => {
         const token = localStorage.getItem("CC_Token")
         try{
             await axios
-            .post(`http://${baseUrl}api/products/create`,
+            .post(`https://${baseUrl}api/products/create`,
             Data,
             { headers: { "Authorization": `Bearer ${token}` } })
             .then((res)=>{
@@ -81,7 +81,7 @@ const AddProducts = () => {
         const Getcategory = async () => {
             const token = localStorage.getItem("CC_Token")
             await axios
-            .get(`http://${baseUrl}api/category/`,
+            .get(`https://${baseUrl}api/category/`,
             { headers: { "Authorization": `Bearer ${token}` } })
             .then((res) => setCategory(res.data))
         }

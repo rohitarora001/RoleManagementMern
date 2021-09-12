@@ -48,7 +48,7 @@ const GetAllProducts = () => {
         const GetProducts = async () => {
             const token = localStorage.getItem("CC_Token")
             await axios
-                .get(`http://${baseUrl}api/products`,
+                .get(`https://${baseUrl}api/products`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => setProducts(res.data))
         }

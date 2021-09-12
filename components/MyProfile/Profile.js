@@ -10,7 +10,7 @@ const Profile = () => {
         const GetCurrentUser = async () => {
             const token = localStorage.getItem("CC_Token")
             await axios
-                .get(`http://${baseUrl}api/users/me`,
+                .get(`https://${baseUrl}api/users/me`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => {
                     setUser(res.data.data)

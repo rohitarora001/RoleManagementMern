@@ -38,7 +38,7 @@ const LastViewed = () => {
             const user = jwt.verify(token, JWT_SECRET);
             const id = user.id;
             await axios
-                .get(`http://${baseUrl}api/users/${id}/viewedproducts`,
+                .get(`https://${baseUrl}api/users/${id}/viewedproducts`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => setProducts(res.data.data.data[0].productsviewed))
         }

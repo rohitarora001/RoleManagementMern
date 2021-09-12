@@ -40,7 +40,7 @@ const MyProductHome = () => {
             const user = jwt.verify(token, JWT_SECRET)
             const id = user.id
             await axios
-                .get(`http://${baseUrl}api/users/${id}/myproducts`,
+                .get(`https://${baseUrl}api/users/${id}/myproducts`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => {
                     // console.log(res.data.products)

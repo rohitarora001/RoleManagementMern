@@ -67,7 +67,7 @@ const LoginForm = () => {
         // console.log(baseUrl)
         try {
             const response = await axios
-            .post(`http://${baseUrl}api/auth/signin-user`, {
+            .post(`https://${baseUrl}api/auth/signin-user`, {
                 email,
                 password,
             })

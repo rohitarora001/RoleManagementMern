@@ -20,7 +20,7 @@ const DeleteProduct = ({id}) => {
         try {
             const token = localStorage.getItem("CC_Token")
             await axios
-                .delete(`http://${baseUrl}api/products/delete/${id}`,
+                .delete(`https://${baseUrl}api/products/delete/${id}`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => {
                     if(res.data.status == "error")

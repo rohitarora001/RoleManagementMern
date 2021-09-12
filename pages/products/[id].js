@@ -40,7 +40,7 @@ const ProductsByCat = () => {
             const token = localStorage.getItem("CC_Token")
             // console.log(id)
             const Data = await axios
-                .get(`http://${baseUrl}api/products/getproductbycategory/${id}`,
+                .get(`https://${baseUrl}api/products/getproductbycategory/${id}`,
                     { headers: { "Authorization": `Bearer ${token}` } })
             await setProduct(Data.data.products)
             // console.log(Data.data.data.data[0].products)

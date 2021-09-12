@@ -39,7 +39,7 @@ const EditProduct = ({ id, name, description,price }) => {
         }
         try{
             const res = await axios
-                .post(`http://${baseUrl}api/products/update/${id}`, data,
+                .post(`https://${baseUrl}api/products/update/${id}`, data,
                     { headers: { "Authorization": `Bearer ${token}` } })
             // console.log(res.data.status)
             handleClose()

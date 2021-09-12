@@ -21,7 +21,7 @@ const AddCategory = () => {
         }
         try{
             await axios
-                .post(`http://${baseUrl}api/category/create`, data,
+                .post(`https://${baseUrl}api/category/create`, data,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) =>{
                     // console.log(res.message)

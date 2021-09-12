@@ -38,7 +38,7 @@ const ChangePassword = () => {
         const id = user.id;
         try {
             await axios
-                .post(`http://${baseUrl}api/users/change-password/${id}`, data,
+                .post(`https://${baseUrl}api/users/change-password/${id}`, data,
                     { headers: { "Authorization": `Bearer ${token}` } })
             makeToast("success", "Password Successfully Changed")
         }

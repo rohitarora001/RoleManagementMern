@@ -14,7 +14,7 @@ const CategoryDetails = () => {
             const token = localStorage.getItem("CC_Token")
             console.log(id)
             const Data = await axios
-                .get(`http://${baseUrl}api/category/${id}`,
+                .get(`https://${baseUrl}api/category/${id}`,
                     { headers: { "Authorization": `Bearer ${token}` } })
             // await setCategory(Data.data.data.data[0])
             setCategory(Data.data.data)
@@ -32,7 +32,7 @@ const CategoryDetails = () => {
                 Category.pictures.map((pic) => {
                     return (
                         <div>
-                            <a><img src={`http://localhost:4000/uploads/${pic}`} /></a>
+                            <a><img src={`https://localhost:4000/uploads/${pic}`} /></a>
                         </div>
                     )
                 })} */}

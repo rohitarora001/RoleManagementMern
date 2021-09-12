@@ -36,7 +36,7 @@ const AllCategory = () => {
         const Getcategory = async () => {
             const token = localStorage.getItem("CC_Token")
             await axios
-                .get(`http://${baseUrl}api/category/`,
+                .get(`https://${baseUrl}api/category/`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => setCategory(res.data))
         }
