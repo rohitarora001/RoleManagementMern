@@ -7,8 +7,13 @@ const Layout = ({ children }) => {
             <div className="Content" >
                 {children}
             </div>
-            <div style={{
-                width:"100vh"
+            <style jsx global>{`
+            .nav {
+                display: "none";
+            }
+            `}</style>
+            <div className="nav" style={{
+                width: "100vh"
             }}>
                 <BottomNavBar />
             </div>
