@@ -11,7 +11,7 @@ const CategoryDetails = () => {
     // console.log(Category)
     async function GetCategory() {
         const token = localStorage.getItem("CC_Token")
-        console.log(id)
+        // console.log(id)
         const Data = await axios
             .get(`https://${baseUrl}api/category/${id}`,
                 { headers: { "Authorization": `Bearer ${token}` } })
