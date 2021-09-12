@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { baseUrl } from '../../next.config'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const useStyles = makeStyles({
@@ -33,21 +34,20 @@ const ProductsByCat = () => {
     const classes = useStyles();
     const router = useRouter();
     const { id } = router.query;
+    const [show, setShow] = useState(true)
     const [product, setProduct] = useState([])
-    // console.log(product)
     async function GetProduct() {
         const token = localStorage.getItem("CC_Token")
-        // console.log(id)
-        const Data = await axios
+        await axios
             .get(`https://${baseUrl}api/products/getproductbycategory/${id}`,
                 { headers: { "Authorization": `Bearer ${token}` } })
-        setProduct(Data.data.products)
-        // console.log(Data.data.data.data[0].products)
+            .then((res) => setProduct(res.data.products))
+            .then(() => setShow(false))
     }
     useEffect(() => {
         GetProduct()
     }, [])
-    
+
     return (
         <div>
             <Grid
@@ -57,44 +57,54 @@ const ProductsByCat = () => {
                 justify="flex-start"
                 alignItems="flex-start"
             >
-                
-                {
-                    product.length === 0 || product === [] ?
-                    <h1>No products in this category please add the products and come back.</h1>    
-                    :               
-                    product.map((prod, index ) => {
-                        return (
-                            <>
-                                {/* {console.log(product.name)} */}
-                                <Card className={classes.root}
-                                    variant="outlined"
-                                    key={prod._id}
-                                    style={{
-                                        margin: "7px"
-                                    }} >
-                                    <CardContent key={prod._id}>
-                                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                            {prod.name}
-                                        </Typography>
-                                        <Typography variant="h5" component="h2">
-                                            {prod.description}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions key={product._id}>
-                                        <Link href={'/product/' + prod._id} key={prod._id}>
-                                            <Button size="small"
-                                                variant="outlined"
-                                                color="secondary"
-                                                onClick={()=>console.log(prod._id)}>
-                                                View Product
-                                            </Button>
-                                        </Link>
-                                    </CardActions>
-                                </Card>
 
-                            </>
-                        )
-                    })
+                {
+                    show == true ?
+                        <div style={{
+                            display: "flex",
+                            position: "fixed",
+                            top: "40%",
+                            left: "50%",
+                        }}>
+                            < CircularProgress disableShrink />
+                        </div>
+                        :
+                        product.length === 0 || product === [] ?
+                            <h1>No products in this category please add the products and come back.</h1>
+                            :
+                            product.map((prod, index) => {
+                                return (
+                                    <>
+                                        {/* {console.log(product.name)} */}
+                                        <Card className={classes.root}
+                                            variant="outlined"
+                                            key={prod._id}
+                                            style={{
+                                                margin: "7px"
+                                            }} >
+                                            <CardContent key={prod._id}>
+                                                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                                                    {prod.name}
+                                                </Typography>
+                                                <Typography variant="h5" component="h2">
+                                                    {prod.description}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions key={product._id}>
+                                                <Link href={'/product/' + prod._id} key={prod._id}>
+                                                    <Button size="small"
+                                                        variant="outlined"
+                                                        color="secondary"
+                                                        onClick={() => console.log(prod._id)}>
+                                                        View Product
+                                                    </Button>
+                                                </Link>
+                                            </CardActions>
+                                        </Card>
+
+                                    </>
+                                )
+                            })
                 }
             </Grid>
         </div>

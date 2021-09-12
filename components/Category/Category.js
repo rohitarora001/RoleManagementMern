@@ -68,56 +68,59 @@ const AllCategory = () => {
                     alignItems="flex-start"
                 >
                     {
-                        show == false || category == undefined || category == null || category.length == 0 ?
+                        show == false ?
                             <div style={{
                                 display: "flex",
                                 position: "fixed",
                                 top: "40%",
                                 left: "50%",
                             }}>
-                                < CircularProgress disableShrink />
+                                <CircularProgress disableShrink />
                             </div>
                             :
-                            category.map((cat, index) => {
-                                return (
-                                    <>
-                                        {/* {console.log(category.name)} */}
-                                        <Card className={classes.root}
-                                            variant="outlined"
-                                            key={cat._id}
-                                            style={{
-                                                margin: "7px",
-                                                width: "23vw"
-                                            }} >
-                                            <CardContent key={category.id}>
-                                                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                    {cat.name}
-                                                </Typography>
-                                                <Typography variant="h5" component="h2">
-                                                    {cat.description}
-                                                </Typography>
-                                            </CardContent>
-                                            <CardActions key={category.id}>
-                                                <Link href={'/category/' + cat._id} key={category._id}>
-                                                    <Button size="small"
-                                                        variant="outlined"
-                                                        color="secondary">
-                                                        View Category
-                                                    </Button>
-                                                </Link>
-                                                <Link href={'/products/' + cat._id} key={category._id}>
-                                                    <Button size="small"
-                                                        variant="outlined"
-                                                        color="secondary">
-                                                        View Products
-                                                    </Button>
-                                                </Link>
-                                            </CardActions>
-                                        </Card>
+                            category.length === 0 || category === [] ?
+                                <h1>No products found</h1>
+                                :
+                                category.map((cat, index) => {
+                                    return (
+                                        <>
+                                            {/* {console.log(category.name)} */}
+                                            <Card className={classes.root}
+                                                variant="outlined"
+                                                key={cat._id}
+                                                style={{
+                                                    margin: "7px",
+                                                    width: "23vw"
+                                                }} >
+                                                <CardContent key={category.id}>
+                                                    <Typography className={classes.title} color="textSecondary" gutterBottom>
+                                                        {cat.name}
+                                                    </Typography>
+                                                    <Typography variant="h5" component="h2">
+                                                        {cat.description}
+                                                    </Typography>
+                                                </CardContent>
+                                                <CardActions key={category.id}>
+                                                    <Link href={'/category/' + cat._id} key={category._id}>
+                                                        <Button size="small"
+                                                            variant="outlined"
+                                                            color="secondary">
+                                                            View Category
+                                                        </Button>
+                                                    </Link>
+                                                    <Link href={'/products/' + cat._id} key={category._id}>
+                                                        <Button size="small"
+                                                            variant="outlined"
+                                                            color="secondary">
+                                                            View Products
+                                                        </Button>
+                                                    </Link>
+                                                </CardActions>
+                                            </Card>
 
-                                    </>
-                                )
-                            })
+                                        </>
+                                    )
+                                })
                     }
                 </Grid>
             </div>

@@ -9,21 +9,21 @@ const BottomNavBar = () => {
             margin: "0",
             padding: "0",
             bottom: "0",
-            left:"0",
+            left: "0",
             width: "100%",
             height: "60px",   /* Height of the footer */
             background: "#6cf",
-            overflow:"hidden"
+            overflow: "hidden"
         }}>
             <div
-            style={{
-                display:"flex"
-            }}>
-                <div
                 style={{
-                    marginTop:"20px",
-                    marginLeft:"100px",
+                    display: "flex"
                 }}>
+                <div
+                    style={{
+                        marginTop: "20px",
+                        marginLeft: "100px",
+                    }}>
                     <Link href='/'>
                         <a
                             style={{
@@ -34,10 +34,10 @@ const BottomNavBar = () => {
                     </Link>
                 </div>
                 <div
-                style={{
-                    marginTop:"20px",
-                    marginLeft:"300px",
-                }}>
+                    style={{
+                        marginTop: "20px",
+                        marginLeft: "300px",
+                    }}>
                     <Link href='/lastviewed'>
                         <a
                             style={{
@@ -49,10 +49,10 @@ const BottomNavBar = () => {
 
                 </div>
                 <div
-                style={{
-                    marginTop:"20px",
-                    marginLeft:"300px",
-                }}>
+                    style={{
+                        marginTop: "20px",
+                        marginLeft: "300px",
+                    }}>
                     <Link href='/category'>
                         <a
                             style={{
@@ -64,10 +64,10 @@ const BottomNavBar = () => {
 
                 </div>
                 <div
-                style={{
-                    marginTop:"20px",
-                    marginLeft:"300px",
-                }}>
+                    style={{
+                        marginTop: "20px",
+                        marginLeft: "300px",
+                    }}>
                     <Link href='/myprofile'>
                         <a
                             style={{

@@ -75,7 +75,7 @@ const MyProductHome = () => {
                     width: "75vw"
                 }}>
                     {
-                        show == false || Products == undefined || Products == null || Products.length == 0 ?
+                        show == false ?
                             <div style={{
                                 display: "flex",
                                 position: "fixed",
@@ -85,45 +85,48 @@ const MyProductHome = () => {
                                 < CircularProgress disableShrink />
                             </div>
                             :
-                            Products.map((prod, index) => {
-                                return (
-                                    <div style={{
-                                        margin: "10px"
-                                    }}>
-                                        <Card className={classes.root} key={index}>
-                                            <CardContent >
-                                                <Typography variant="h5" key={index} component="h2">
-                                                    {prod.name}
-                                                </Typography>
-                                                <Typography variant="h5" key={index} color="textSecondary" component="h2">
-                                                    {prod.description}
-                                                </Typography>
-                                                <Typography variant="h5" key={index} color="black" component="h2">
-                                                    Price : {prod.price}
-                                                </Typography>
+                            Products.length === 0 || Products === [] ?
+                                <h1>No products are added by you till now</h1>
+                                :
+                                Products.map((prod, index) => {
+                                    return (
+                                        <div style={{
+                                            margin: "10px"
+                                        }}>
+                                            <Card className={classes.root} key={index}>
+                                                <CardContent >
+                                                    <Typography variant="h5" key={index} component="h2">
+                                                        {prod.name}
+                                                    </Typography>
+                                                    <Typography variant="h5" key={index} color="textSecondary" component="h2">
+                                                        {prod.description}
+                                                    </Typography>
+                                                    <Typography variant="h5" key={index} color="black" component="h2">
+                                                        Price : {prod.price}
+                                                    </Typography>
 
-                                            </CardContent>
-                                            <CardActions>
-                                                <Link href={'/product/' + prod._id}>
-                                                    <Button size="small" key={index} variant="outlined">View Product</Button>
-                                                </Link>
-                                            </CardActions>
-                                            <CardActions key={index}>
-                                                <EditProduct
-                                                    name={prod.name}
-                                                    price={prod.price}
-                                                    description={prod.description}
-                                                    id={prod._id}
-                                                    key={index}
-                                                />
-                                            </CardActions>
-                                            <CardActions key={index}>
-                                                <DeleteProduct id={prod._id} />
-                                            </CardActions>
-                                        </Card>
-                                    </div>
-                                )
-                            })
+                                                </CardContent>
+                                                <CardActions>
+                                                    <Link href={'/product/' + prod._id}>
+                                                        <Button size="small" key={index} variant="outlined">View Product</Button>
+                                                    </Link>
+                                                </CardActions>
+                                                <CardActions key={index}>
+                                                    <EditProduct
+                                                        name={prod.name}
+                                                        price={prod.price}
+                                                        description={prod.description}
+                                                        id={prod._id}
+                                                        key={index}
+                                                    />
+                                                </CardActions>
+                                                <CardActions key={index}>
+                                                    <DeleteProduct id={prod._id} />
+                                                </CardActions>
+                                            </Card>
+                                        </div>
+                                    )
+                                })
                     }
                 </div>
             </div>
