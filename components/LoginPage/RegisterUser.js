@@ -55,7 +55,7 @@ const RegisterUser = () => {
         // formData.append('avatar', File);
         // console.log(formData)
         try{
-            await axios.post(`httpss://role-management-mern.herokuapp.com/api/auth/register-user`, Data)
+            await axios.post(`https://role-management-mern.herokuapp.com/api/auth/register-user`, Data)
                 .then((res) => {
                     if(res.status == 200){
                         makeToast('success','Successfully Registered')
