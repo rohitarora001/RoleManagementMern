@@ -28,43 +28,49 @@ const useStyles = makeStyles((theme) => ({
 const RegisterUser = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const [FirstName, setFirstName] = useState(false);
-    const [LastName, setLastName] = useState(false);
-    const [Email, setEmail] = useState(false);
-    const [Password, setPassword] = useState(false);
-    const [Phone, setPhone] = useState(false);
-    const [Role, setRole] = useState(false);
-    const [File, setFile] = useState(false);
+    const [FirstName, setFirstName] = useState('');
+    const [LastName, setLastName] = useState('');
+    const [Email, setEmail] = useState(null);
+    const [Password, setPassword] = useState('');
+    const [Phone, setPhone] = useState(null);
+    const [Role, setRole] = useState(0);
 
     const register = async () => {
-        // const formData = new FormData();
-        const Data = {
-            firstname: FirstName,
-            lastname: LastName,
-            phone: Phone,
-            email: Email,
-            password: Password,
-            role: Role,
+        //Only for indian numbers only
+        if (!/^\S+@\S+\.\S+$/.test(Email) || Email == null) {
+            return makeToast('warning', 'Invalid email address')
         }
-        // formData.append('firstname', FirstName);
-        // formData.append('lastname', LastName);
-        // formData.append('phone', Phone);
-        // formData.append('email', Email);
-        // formData.append('role', Role);
-        // formData.append('password', Password);
-        // formData.append('avatar', File);
-        // console.log(formData)
-        try{
-            await axios.post(`https://role-management-mern.herokuapp.com/api/auth/register-user`, Data)
-                .then((res) => {
-                    if(res.status == 200){
-                        makeToast('success','Successfully Registered')
-                    }
-                })
+        else if (!/^[6-9]\d{9}$/.test(Phone) || Phone == null) {
+            return makeToast('warning', 'Invalid Phone Number')
         }
-        catch(error){
-            console.log(error)
-            makeToast('error','A user is already registered with same email or phone')
+        else {
+            const Data = {
+                firstname: FirstName,
+                lastname: LastName,
+                phone: Phone,
+                email: Email,
+                password: Password,
+                role: Role,
+            }
+            // formData.append('firstname', FirstName);
+            // formData.append('lastname', LastName);
+            // formData.append('phone', Phone);
+            // formData.append('email', Email);
+            // formData.append('role', Role);
+            // formData.append('password', Password);
+            // formData.append('avatar', File);
+            // console.log(formData)
+            try {
+                await axios.post(`https://${baseUrl}api/auth/register-user`, Data)
+                    .then((res) => {
+                        if (res.status == 200) {
+                            makeToast('success', 'Successfully Registered')
+                        }
+                    })
+            }
+            catch (error) {
+                makeToast('error', 'A user is already registered with same email or phone')
+            }
         }
     }
     const handleClickOpen = () => {
