@@ -82,7 +82,7 @@ const RegisterUser = () => {
                 }}>Register user
             </a>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Change Password</DialogTitle>
+                <DialogTitle id="form-dialog-title">Register</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
