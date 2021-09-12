@@ -24,17 +24,22 @@ const useStyles = makeStyles((theme) => ({
         margin: 'auto',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '60vh',
+        height: '45vh',
     },
     centerForm: {
-        height: '80vh',
         display: "flex",
         flexDirection: "column",
         // margin: '5px',
         // justifyContent: 'center',
         // alignItems: 'center',
     },
-    input: {
+    input1: {
+        height: "20px",
+        marginTop: "5px",
+        marginBottom: "35px",
+        width: "80%",
+    },
+    input2: {
         height: "20px",
         marginTop: "20px",
         marginBottom: "35px",
@@ -67,10 +72,10 @@ const LoginForm = () => {
         // console.log(baseUrl)
         try {
             const response = await axios
-            .post(`https://${baseUrl}api/auth/signin-user`, {
-                email,
-                password,
-            })
+                .post(`https://${baseUrl}api/auth/signin-user`, {
+                    email,
+                    password,
+                })
             if (response.data.status == "ok" && response.data.token) {
                 const token = response.data.token
                 localStorage.setItem("CC_Token", token);
@@ -81,14 +86,14 @@ const LoginForm = () => {
                 makeToast("error", 'Email or password is invalid');
             }
         }
-        
+
         catch (err) {
             // console.log(err);
             makeToast("error", 'Email or password is invalid');
         };
     }
-    useEffect(async () => {
-        
+    useEffect(() => {
+
         let token = localStorage.getItem("CC_Token", token);
         if (token != null) {
             const LoggedIn = () => {
@@ -103,39 +108,54 @@ const LoginForm = () => {
     return (
         <>
             <div style={{
-                height: "100%",
+                position:"fixed",
+                left:"0",
+                top:"0",
+                bottom:"0",
+                backgroundColor: 'rgb(240,242,245)',
+                height:"99.9vh",
+                width:"100.5%",
                 display: "flex",
-                margin: "auto",
                 justifyContent: "center",
                 alignItems: "center"
             }}>
                 <Paper
                     className={classes.centerPaper}
+                    style={{
+                        boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+                        background:"rgb(255,255,255)"
+                    }}
                 >
-                    <h2 className={classes.heading}>
-                        Login
-                    </h2>
-                    <TextField id="outlined-basic"
-                        label="email"
-                        color="primary"
-                        className={classes.input}
-                        variant="outlined"
-                        value={email}
-                        onChange={(e) => { inputEmail(e) }} />
+                    <div>
 
-                    <TextField id="outlined-basic"
-                        label="password"
-                        color="primary"
-                        className={classes.input}
-                        value={password}
-                        variant="outlined"
-                        onChange={(e) => { inputPassword(e) }} />
-                    <div >
-                        <RegisterUser />
+                        <h2 className={classes.heading}>
+                            Login
+                        </h2>
+                        <TextField id="outlined-basic"
+                            label="email"
+                            color="primary"
+                            className={classes.input1}
+                            variant="outlined"
+                            value={email}
+                            onChange={(e) => { inputEmail(e) }} />
+
+                        <TextField id="outlined-basic"
+                            label="password"
+                            color="primary"
+                            className={classes.input2}
+                            value={password}
+                            variant="outlined"
+                            onChange={(e) => { inputPassword(e) }} />
+                        <div style={{
+                            marginTop:"5px",
+                            marginBottom:"5px",
+                        }}>
+                            <RegisterUser />
+                        </div>
+                        <Button variant="outlined" color="primary" onClick={LoginUser}>
+                            Login
+                        </Button>
                     </div>
-                    <Button variant="outlined" color="primary" onClick={LoginUser}>
-                        Login
-                    </Button>
                 </Paper>
             </div>
 
