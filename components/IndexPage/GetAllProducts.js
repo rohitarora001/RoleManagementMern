@@ -82,7 +82,7 @@ const GetAllProducts = () => {
                                         margin: "7px"
                                     }} >
                                     <CardContent key={product.id}>
-                                        {
+                                        {/* {
                                             product.pictures.map((pic) => {
                                                 return (
                                                     <div>
@@ -90,7 +90,7 @@ const GetAllProducts = () => {
                                                     </div>
                                                 )
                                             })
-                                        }
+                                        } */}
                                         <Typography key = {index} className={classes.title} color="textSecondary" gutterBottom>
                                             {product.name}
                                         </Typography>
