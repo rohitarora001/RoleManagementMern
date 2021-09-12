@@ -25,8 +25,7 @@ const LogOut = () => {
     return (
         <div>
             <Button size="small"
-                variant="outlined"
-                color="secondary"
+                color="primary"
                 onClick={handleClickOpen}>
                 Logout
             </Button>

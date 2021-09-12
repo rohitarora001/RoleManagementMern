@@ -45,8 +45,7 @@ const DeleteUser = ({ id }) => {
     return (
         <div>
             <Button size="small"
-                variant="outlined"
-                color="secondary"
+                color="primary"
                 onClick={handleClickOpen}>
                 Delete Account
             </Button>

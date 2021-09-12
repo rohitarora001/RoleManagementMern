@@ -9,7 +9,7 @@ import AllUsers from '../AllUsers/AllUsers'
 import axios from 'axios'
 import { baseUrl } from '../../next.config'
 import MyCategory from '../Category/MyCategory'
-import MyProducts from '../Products/MyProducts' 
+import MyProducts from '../Products/MyProducts'
 
 const ViewProfile = () => {
     const [userRole, setUserRole] = useState()
@@ -31,13 +31,24 @@ const ViewProfile = () => {
 
     return (
         <Layout>
-            <div style={{display:"flex"}}>
-                <h1>
-                    My Profile
-                </h1>
+            <div style={{
+                display: "flex",
+                backgroundColor: "rgb(240,242,245)"
+            }}>
+                <div>
+                    <h1 style={{
+                        color: "rgb(102,204,255)",
+                        marginLeft: "10px"
+                    }}>
+                        My Profile
+                    </h1>
+                </div>
                 <div style={{
                     display: "flex",
                     margin: "auto",
+                    position: "absolute",
+                    right: "5px",
+                    top: "30px",
                 }}>
                     <div style={{
                         margin: "5px"
@@ -84,7 +95,6 @@ const ViewProfile = () => {
                         <LogOut />
                     </div>
                 </div>
-
             </div>
             <div style={{
                 display: "flex",

@@ -83,8 +83,7 @@ const UpdateProfile = () => {
         <div>
             {/* {console.log(user)} */}
             <Button size="small"
-                variant="outlined"
-                color="secondary"
+                color="primary"
                 onClick={() => {
                     setEmail(user.email)
                     setFirstname(user.firstname)

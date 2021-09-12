@@ -34,56 +34,58 @@ const Profile = () => {
                 style={{
                     display: "flex"
                 }}>
-                    <h2 style={{
-                        marginRight:"5px",
-                        fontSize:"1.2em"
-                    }}>
-                        Name:
-                    </h2>
-                    <h3
+                <h2 style={{
+                    marginRight: "5px",
+                    fontSize: "1.2em"
+                }}>
+                    Name:
+                </h2>
+                <h3
                     style={{
-                        marginTop:"15px"
+                        marginTop: "17px",
+                        fontSize: "1.2em"
                     }}>
-                        {user.firstname+" "+user.lastname}
-                    </h3>
+                    {user.firstname + " " + user.lastname}
+                </h3>
             </div>
             <div
                 style={{
                     display: "flex",
-                    margin:"0"
+                    margin: "0"
                 }}>
-                    <h2 style={{
-                        marginRight:"5px",
-                        fontSize:"1.2em"
-                    }}>
-                        Email:
-                    </h2>
-                    <h3
+                <h2 style={{
+                    marginRight: "5px",
+                    fontSize: "1.2em"
+                }}>
+                    Email:
+                </h2>
+                <h3
                     style={{
-                        marginTop:"15px"
+                        marginTop: "17px",
+                        fontSize: "1.2em"
                     }}>
-                        {user.email}
-                    </h3>
+                    {user.email}
+                </h3>
             </div>
             <div
                 style={{
                     display: "flex",
-                    margin:"0"
+                    margin: "0"
                 }}>
-                    <h2 style={{
-                        marginRight:"5px",
-                        fontSize:"1.2em"
-                    }}>
-                        Phone:
-                    </h2>
-                    <h3
-                    style={{
-                        marginTop:"15px"
-                    }}>
-                        {user.phone}
-                    </h3>
+                <h2 style={{
+                    marginRight: "5px",
+                    fontSize: "1.2em"
+                }}>
+                    Phone:
+                </h2>
+                <h3 style={{
+                    marginTop: "17px",
+                    fontSize: "1.2em"
+                }}>
+                    {user.phone}
+                </h3>
             </div>
-            
+
         </div>
     )
 }
