@@ -33,12 +33,13 @@ const ViewProfile = () => {
         <Layout>
             <div style={{
                 display: "flex",
-                backgroundColor: "rgb(240,242,245)"
+                backgroundColor: "rgb(240,242,245)",
+                borderRadius:"5px"
             }}>
                 <div>
                     <h1 style={{
                         color: "rgb(102,204,255)",
-                        marginLeft: "10px"
+                        marginLeft: "10px",
                     }}>
                         My Profile
                     </h1>
@@ -47,7 +48,7 @@ const ViewProfile = () => {
                     display: "flex",
                     margin: "auto",
                     position: "absolute",
-                    right: "5px",
+                    right: "15px",
                     top: "30px",
                 }}>
                     <div style={{

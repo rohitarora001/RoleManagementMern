@@ -11,6 +11,8 @@ import { baseUrl } from '../../next.config'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Layout from '../Layout/Layout'
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
@@ -32,12 +34,14 @@ const AllCategory = () => {
     const router = useRouter()
     const classes = useStyles();
     const [category, setCategory] = useState([])
+    const [show, setShow] = useState(false)
     const Getcategory = async () => {
         const token = localStorage.getItem("CC_Token")
         await axios
             .get(`https://${baseUrl}api/category/`,
                 { headers: { "Authorization": `Bearer ${token}` } })
             .then((res) => setCategory(res.data))
+            .then(() => setShow(true))
     }
     useEffect(() => {
         Getcategory();
@@ -47,13 +51,13 @@ const AllCategory = () => {
         <Layout>
             <div>
                 <div
-                style={{
-                    display:"flex",
-                    margin:"auto",
-                    justifyContent:"center",
-                    alignItems:"center",
-                }}>
-                <h1>Categories</h1>
+                    style={{
+                        display: "flex",
+                        margin: "auto",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}>
+                    <h1>Categories</h1>
 
                 </div>
                 <Grid
@@ -64,46 +68,56 @@ const AllCategory = () => {
                     alignItems="flex-start"
                 >
                     {
-                        category.map((cat, index) => {
-                            return (
-                                <>
-                                    {/* {console.log(category.name)} */}
-                                    <Card className={classes.root}
-                                        variant="outlined"
-                                        key={cat._id}
-                                        style={{
-                                            margin: "7px",
-                                            width: "23vw"
-                                        }} >
-                                        <CardContent key={category.id}>
-                                            <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                {cat.name}
-                                            </Typography>
-                                            <Typography variant="h5" component="h2">
-                                                {cat.description}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions key={category.id}>
-                                            <Link href={'/category/' + cat._id} key={category._id}>
-                                                <Button size="small"
-                                                    variant="outlined"
-                                                    color="secondary">
-                                                    View Category
-                                                </Button>
-                                            </Link>
-                                            <Link href={'/products/' + cat._id} key={category._id}>
-                                                <Button size="small"
-                                                    variant="outlined"
-                                                    color="secondary">
-                                                    View Products
-                                                </Button>
-                                            </Link>
-                                        </CardActions>
-                                    </Card>
+                        show == false || category == undefined || category == null || category.length == 0 ?
+                            <div style={{
+                                display: "flex",
+                                position: "fixed",
+                                top: "40%",
+                                left: "50%",
+                            }}>
+                                < CircularProgress disableShrink />
+                            </div>
+                            :
+                            category.map((cat, index) => {
+                                return (
+                                    <>
+                                        {/* {console.log(category.name)} */}
+                                        <Card className={classes.root}
+                                            variant="outlined"
+                                            key={cat._id}
+                                            style={{
+                                                margin: "7px",
+                                                width: "23vw"
+                                            }} >
+                                            <CardContent key={category.id}>
+                                                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                                                    {cat.name}
+                                                </Typography>
+                                                <Typography variant="h5" component="h2">
+                                                    {cat.description}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions key={category.id}>
+                                                <Link href={'/category/' + cat._id} key={category._id}>
+                                                    <Button size="small"
+                                                        variant="outlined"
+                                                        color="secondary">
+                                                        View Category
+                                                    </Button>
+                                                </Link>
+                                                <Link href={'/products/' + cat._id} key={category._id}>
+                                                    <Button size="small"
+                                                        variant="outlined"
+                                                        color="secondary">
+                                                        View Products
+                                                    </Button>
+                                                </Link>
+                                            </CardActions>
+                                        </Card>
 
-                                </>
-                            )
-                        })
+                                    </>
+                                )
+                            })
                     }
                 </Grid>
             </div>
