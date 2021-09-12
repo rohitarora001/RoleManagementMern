@@ -86,7 +86,7 @@ const AddProducts = () => {
             .then((res) => setCategory(res.data))
         }
         Getcategory()
-    })
+    },[])
     return (
         <>
             <Button size="small"

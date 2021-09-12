@@ -32,31 +32,31 @@ const AllUsersProfile = () => {
                                     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
                                     border: "2px solid grey",
                                     borderRadius: "5px",
-                                    marginBottom:"10px"
+                                    marginBottom:"10px",
                                 }}>
 
                                 <div style={{
                                     color: "black",
-                                    padding: "5px"
+                                    padding: "5px",
                                 }}>
 
                                     <div style={{
-                                        margin: "5px"
+                                        margin: "5px",
                                     }}>
                                         Name: {user.firstname} {user.lastname}
                                     </div>
                                     <div style={{
-                                        margin: "5px"
+                                        margin: "5px",
                                     }}>
                                         Phone: {user.phone}
                                     </div>
                                     <div style={{
-                                        margin: "5px"
+                                        margin: "5px",
                                     }}>
                                         Email: {user.email}
                                     </div>
                                     <div style={{
-                                        margin: "5px"
+                                        margin: "5px",
                                     }}>
                                         <DeleteUser id={user._id} />
                                     </div>

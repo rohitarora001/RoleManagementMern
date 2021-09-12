@@ -9,9 +9,10 @@ const BottomNavBar = () => {
             margin: "0",
             padding: "0",
             bottom: "0",
-            width: "95%",
+            width: "100%",
             height: "60px",   /* Height of the footer */
-            background: "#6cf"
+            background: "#6cf",
+            overflow:"hidden"
         }}>
             <div
             style={{

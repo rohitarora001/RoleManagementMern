@@ -91,10 +91,10 @@ const GetAllProducts = () => {
                                                 )
                                             })
                                         }
-                                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                                        <Typography key = {index} className={classes.title} color="textSecondary" gutterBottom>
                                             {product.name}
                                         </Typography>
-                                        <Typography variant="h5" component="h2">
+                                        <Typography variant="h5" key = {index} component="h2">
                                             {product.description}
                                         </Typography>
                                     </CardContent>
@@ -102,7 +102,8 @@ const GetAllProducts = () => {
                                         <Link href={'/product/' + product._id} key={product._id}>
                                             <Button size="small"
                                                 variant="outlined"
-                                                color="secondary">
+                                                color="secondary"
+                                                key = {index}>
                                                 View Product
                                             </Button>
                                         </Link>

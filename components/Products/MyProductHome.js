@@ -80,31 +80,32 @@ const MyProductHome = () => {
                             }}>
                                 <Card className={classes.root} key={index}>
                                     <CardContent >
-                                        <Typography variant="h5" component="h2">
+                                        <Typography variant="h5" key={index} component="h2">
                                             {prod.name}
                                         </Typography>
-                                        <Typography variant="h5" color="textSecondary" component="h2">
+                                        <Typography variant="h5" key={index} color="textSecondary" component="h2">
                                             {prod.description}
                                         </Typography>
-                                        <Typography variant="h5" color="black" component="h2">
+                                        <Typography variant="h5"  key={index} color="black" component="h2">
                                             Price : {prod.price}
                                         </Typography>
 
                                     </CardContent>
                                     <CardActions>
                                         <Link href={'/product/' + prod._id}>
-                                            <Button size="small" variant="outlined">View Product</Button>
+                                            <Button size="small"key={index}  variant="outlined">View Product</Button>
                                         </Link>
                                     </CardActions>
-                                    <CardActions>
+                                    <CardActions key={index}>
                                         <EditProduct
                                             name={prod.name}
                                             price={prod.price}
                                             description={prod.description}
                                             id={prod._id}
+                                            key={index}
                                         />
                                     </CardActions>
-                                    <CardActions>
+                                    <CardActions key={index}>
                                         <DeleteProduct id={prod._id} />
                                     </CardActions>
                                 </Card>
