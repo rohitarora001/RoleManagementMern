@@ -15,13 +15,13 @@ const ProductDetails = () => {
         const Data = await axios
             .get(`https://${baseUrl}api/products/${id}`,
                 { headers: { "Authorization": `Bearer ${token}` } })
-        await setProduct(Data.data.data.data[0])
+        setProduct(Data.data.data.data[0])
         console.log(Data.data.data.data[0])
     }
     useEffect(() => {
         GetProduct()
     }, [])
-    
+
     return (
         <div>
             <h1>
