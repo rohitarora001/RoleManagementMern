@@ -16,7 +16,7 @@ const ProductDetails = () => {
         await axios
             .get(`https://${baseUrl}api/products/${id}`,
                 { headers: { "Authorization": `Bearer ${token}` } })
-            .then((res) => setProduct(Data.data.data.data[0]))
+            .then((res) => setProduct(res.data.data.data[0]))
             .then(() => setShow(false))
 
     }
