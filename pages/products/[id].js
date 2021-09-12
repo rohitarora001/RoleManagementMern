@@ -35,16 +35,16 @@ const ProductsByCat = () => {
     const { id } = router.query;
     const [product, setProduct] = useState([])
     // console.log(product)
+    async function GetProduct() {
+        const token = localStorage.getItem("CC_Token")
+        // console.log(id)
+        const Data = await axios
+            .get(`https://${baseUrl}api/products/getproductbycategory/${id}`,
+                { headers: { "Authorization": `Bearer ${token}` } })
+        await setProduct(Data.data.products)
+        // console.log(Data.data.data.data[0].products)
+    }
     useEffect(() => {
-        async function GetProduct() {
-            const token = localStorage.getItem("CC_Token")
-            // console.log(id)
-            const Data = await axios
-                .get(`https://${baseUrl}api/products/getproductbycategory/${id}`,
-                    { headers: { "Authorization": `Bearer ${token}` } })
-            await setProduct(Data.data.products)
-            // console.log(Data.data.data.data[0].products)
-        }
         GetProduct()
     }, [])
     

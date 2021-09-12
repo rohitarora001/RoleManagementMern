@@ -8,16 +8,16 @@ const ProductLandingPage = ({ id }) => {
     const [product, setProduct] = useState([])
     const router = useRouter();
     // console.log(product)
+    async function GetProduct() {
+        const token = localStorage.getItem("CC_Token")
+        console.log(id)
+        const Data = await axios
+            .get(`https://${baseUrl}api/products/${id}`,
+                { headers: { "Authorization": `Bearer ${token}` } })
+        setProduct(Data.data.data.data[0])
+        console.log(Data.data.data.data[0])
+    }
     useEffect(() => {
-        async function GetProduct() {
-            const token = localStorage.getItem("CC_Token")
-            console.log(id)
-            const Data = await axios
-                .get(`https://${baseUrl}api/products/${id}`,
-                    { headers: { "Authorization": `Bearer ${token}` } })
-            setProduct(Data.data.data.data[0])
-            console.log(Data.data.data.data[0])
-        }
         GetProduct()
     }, [])
     return (

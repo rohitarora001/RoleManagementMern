@@ -65,18 +65,18 @@ const UpdateProfile = () => {
         setEmail(e.target.value)
     }
     
+    const GetCurrentUser = async () => {
+        const token = localStorage.getItem("CC_Token")
+        await axios
+            .get(`https://${baseUrl}api/users/me`,
+                { headers: { "Authorization": `Bearer ${token}` } })
+            .then((res) => {
+                setUser(res.data.data)
+                // setPicUrl(res.data.data.avatar[0])
+            }
+            )
+    }
     useEffect(() => {
-        const GetCurrentUser = async () => {
-            const token = localStorage.getItem("CC_Token")
-            await axios
-                .get(`https://${baseUrl}api/users/me`,
-                    { headers: { "Authorization": `Bearer ${token}` } })
-                .then((res) => {
-                    setUser(res.data.data)
-                    // setPicUrl(res.data.data.avatar[0])
-                }
-                )
-        }
         GetCurrentUser()
     }, [])
     return (

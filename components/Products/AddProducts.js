@@ -77,14 +77,14 @@ const AddProducts = () => {
             setName('')
         }
     }
+    const Getcategory = async () => {
+        const token = localStorage.getItem("CC_Token")
+        await axios
+        .get(`https://${baseUrl}api/category/`,
+        { headers: { "Authorization": `Bearer ${token}` } })
+        .then((res) => setCategory(res.data))
+    }
     useEffect(()=>{
-        const Getcategory = async () => {
-            const token = localStorage.getItem("CC_Token")
-            await axios
-            .get(`https://${baseUrl}api/category/`,
-            { headers: { "Authorization": `Bearer ${token}` } })
-            .then((res) => setCategory(res.data))
-        }
         Getcategory()
     },[])
     return (

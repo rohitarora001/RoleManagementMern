@@ -9,16 +9,16 @@ const CategoryDetails = () => {
     const { id } = router.query;
     const [Category, setCategory] = useState([])
     // console.log(Category)
+    async function GetCategory() {
+        const token = localStorage.getItem("CC_Token")
+        console.log(id)
+        const Data = await axios
+            .get(`https://${baseUrl}api/category/${id}`,
+                { headers: { "Authorization": `Bearer ${token}` } })
+        // await setCategory(Data.data.data.data[0])
+        setCategory(Data.data.data)
+    }
     useEffect(() => {
-        async function GetCategory() {
-            const token = localStorage.getItem("CC_Token")
-            console.log(id)
-            const Data = await axios
-                .get(`https://${baseUrl}api/category/${id}`,
-                    { headers: { "Authorization": `Bearer ${token}` } })
-            // await setCategory(Data.data.data.data[0])
-            setCategory(Data.data.data)
-        }
         GetCategory()
     }, [])
 

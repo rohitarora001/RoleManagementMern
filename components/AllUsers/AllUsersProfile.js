@@ -6,14 +6,14 @@ import DeleteUser from './DeleteUser'
 const AllUsersProfile = () => {
 
     const [Users, setUsers] = useState([])
+    const getAllUsers = async () => {
+        const token = localStorage.getItem("CC_Token")
+        await axios
+            .get(`https://${baseUrl}api/users/all-user`,
+                { headers: { "Authorization": `Bearer ${token}` } })
+            .then((res) => setUsers(res.data))
+    }
     useEffect(() => {
-        const getAllUsers = async () => {
-            const token = localStorage.getItem("CC_Token")
-            await axios
-                .get(`https://${baseUrl}api/users/all-user`,
-                    { headers: { "Authorization": `Bearer ${token}` } })
-                .then((res) => setUsers(res.data))
-        }
         getAllUsers()
     }, [])
     return (

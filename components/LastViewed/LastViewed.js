@@ -32,16 +32,16 @@ const LastViewed = () => {
     const classes = useStyles();
     const [products, setProducts] = useState([])
     
+    const getProducts = async () => {
+        const token = localStorage.getItem("CC_Token")
+        const user = jwt.verify(token, JWT_SECRET);
+        const id = user.id;
+        await axios
+            .get(`https://${baseUrl}api/users/${id}/viewedproducts`,
+                { headers: { "Authorization": `Bearer ${token}` } })
+            .then((res) => setProducts(res.data.data.data[0].productsviewed))
+    }
     useEffect(() => {
-        const getProducts = async () => {
-            const token = localStorage.getItem("CC_Token")
-            const user = jwt.verify(token, JWT_SECRET);
-            const id = user.id;
-            await axios
-                .get(`https://${baseUrl}api/users/${id}/viewedproducts`,
-                    { headers: { "Authorization": `Bearer ${token}` } })
-                .then((res) => setProducts(res.data.data.data[0].productsviewed))
-        }
         getProducts();
     }, [])
 

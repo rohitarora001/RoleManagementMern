@@ -35,16 +35,16 @@ const useStyles = makeStyles({
 const MyCategoryHome = () => {
     const classes = useStyles();
     const [Category, setCategory] = useState([]);
+    const getMyCategories = async () => {
+        const token = localStorage.getItem("CC_Token")
+        const user = jwt.verify(token, JWT_SECRET)
+        const id = user.id
+        await axios
+            .get(`https://${baseUrl}api/users/${id}/mycategory`,
+                { headers: { "Authorization": `Bearer ${token}` } })
+            .then((res) => setCategory(res.data.categories))
+    }
     useEffect(() => {
-        const getMyCategories = async () => {
-            const token = localStorage.getItem("CC_Token")
-            const user = jwt.verify(token, JWT_SECRET)
-            const id = user.id
-            await axios
-                .get(`https://${baseUrl}api/users/${id}/mycategory`,
-                    { headers: { "Authorization": `Bearer ${token}` } })
-                .then((res) => setCategory(res.data.categories))
-        }
         getMyCategories()
     }, [])
     return (

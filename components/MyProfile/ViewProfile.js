@@ -14,18 +14,18 @@ import MyProducts from '../Products/MyProducts'
 const ViewProfile = () => {
     const [userRole, setUserRole] = useState()
     const [UserId, setUserId] = useState()
+    const getCurrentUser = async () => {
+        const token = localStorage.getItem("CC_Token")
+        await axios
+            .get(`https://${baseUrl}api/users/me`,
+                { headers: { "Authorization": `Bearer ${token}` } })
+            .then((res) => {
+                setUserRole(res.data.data.role)
+                setUserId(res.data.data._id)
+            }
+            )
+    }
     useEffect(() => {
-        const getCurrentUser = async () => {
-            const token = localStorage.getItem("CC_Token")
-            await axios
-                .get(`https://${baseUrl}api/users/me`,
-                    { headers: { "Authorization": `Bearer ${token}` } })
-                .then((res) => {
-                    setUserRole(res.data.data.role)
-                    setUserId(res.data.data._id)
-                }
-                )
-        }
         getCurrentUser()
     }, [])
 
