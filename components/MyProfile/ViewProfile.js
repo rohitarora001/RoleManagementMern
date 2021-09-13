@@ -10,25 +10,48 @@ import axios from 'axios'
 import { baseUrl } from '../../next.config'
 import MyCategory from '../Category/MyCategory'
 import MyProducts from '../Products/MyProducts'
+import makeToast from '../../Toaster';
+import { useRouter } from 'next/router'
 
 const ViewProfile = () => {
     const [userRole, setUserRole] = useState()
     const [UserId, setUserId] = useState()
+    const router = useRouter()
     const getCurrentUser = async () => {
+        try{
+            const token = localStorage.getItem("CC_Token")
+            await axios
+                .get(`https://${baseUrl}api/users/me`,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+                .then((res) => {
+                    setUserRole(res.data.data.role)
+                    setUserId(res.data.data._id)
+                }
+                )
+        }
+        catch(error){
+            makeToast("error","You must be logged in")
+        }
+    }
+    const checkLoggedin = () => {
         const token = localStorage.getItem("CC_Token")
-        await axios
-            .get(`https://${baseUrl}api/users/me`,
-                { headers: { "Authorization": `Bearer ${token}` } })
-            .then((res) => {
-                setUserRole(res.data.data.role)
-                setUserId(res.data.data._id)
-            }
-            )
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
     }
     useEffect(() => {
-        getCurrentUser()
+        const goahead = checkLoggedin()
+        if (goahead == false) {
+            makeToast("error", "You must be logged in")
+            router.push('/login')
+        }
+        else {
+            getCurrentUser()
+        }
     }, [])
-
     return (
         <Layout>
             <div style={{

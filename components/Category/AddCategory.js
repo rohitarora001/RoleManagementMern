@@ -19,26 +19,22 @@ const AddCategory = () => {
             name: Name,
             description: Description,
         }
-        try{
+        try {
             await axios
                 .post(`https://${baseUrl}api/category/create`, data,
                     { headers: { "Authorization": `Bearer ${token}` } })
-                .then((res) =>{
-                    // console.log(res.message)
-                    if(res.status == 200 )
-                    {
-                        makeToast("success","The category added successfully")
+                .then((res) => {
+                    if (res.status == 200) {
+                        makeToast("success", "The category added successfully")
                     }
-                    
                 })
         }
-        catch(error){
-            if(error.message.includes("409"))
-            {
-                makeToast("error","The category with same name already exists")
+        catch (error) {
+            if (error.message.includes("409")) {
+                makeToast("error", "The category with same name already exists")
             }
             else {
-                makeToast("error","Something went wrong")
+                makeToast("error", "Something went wrong")
             }
         }
     }

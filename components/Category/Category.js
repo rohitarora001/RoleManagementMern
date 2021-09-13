@@ -11,6 +11,7 @@ import { baseUrl } from '../../next.config'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Layout from '../Layout/Layout'
+import makeToast from '../../Toaster';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles({
@@ -43,13 +44,32 @@ const AllCategory = () => {
             .then((res) => setCategory(res.data))
             .then(() => setShow(true))
     }
+    const checkLoggedin = () => {
+        const token = localStorage.getItem("CC_Token")
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
+    }
     useEffect(() => {
-        Getcategory();
-        // console.log(category)
+
+        const goahead = checkLoggedin()
+        if (goahead == false) {
+            makeToast("error", "You must be logged in")
+            router.push('/login')
+        }
+        else {
+            Getcategory()
+        }
     }, [])
     return (
         <Layout>
-            <div>
+            <div style={{
+                height: "auto",
+                width: "100%"
+            }}>
                 <div
                     style={{
                         display: "flex",
@@ -84,7 +104,6 @@ const AllCategory = () => {
                                 category.map((cat, index) => {
                                     return (
                                         <>
-                                            {/* {console.log(category.name)} */}
                                             <Card className={classes.root}
                                                 variant="outlined"
                                                 key={cat._id}

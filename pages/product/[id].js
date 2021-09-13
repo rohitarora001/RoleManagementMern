@@ -10,6 +10,15 @@ const ProductDetails = () => {
     const { id } = router.query;
     const [product, setProduct] = useState([])
     const [show, setShow] = useState(true)
+    const checkLoggedin = () => {
+        const token = localStorage.getItem("CC_Token")
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
+    }
 
     async function GetProduct() {
         const token = localStorage.getItem("CC_Token")
@@ -21,7 +30,15 @@ const ProductDetails = () => {
 
     }
     useEffect(() => {
-        GetProduct()
+        const goahead = checkLoggedin()
+        if (goahead == false) {
+            makeToast("error", "You must be logged in")
+            router.push('/login')
+        }
+        else {
+            GetProduct()
+        }
+
     }, [])
 
     return (

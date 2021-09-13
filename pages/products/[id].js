@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { baseUrl } from '../../next.config'
 import Link from 'next/link'
+import makeToast from '../../Toaster';
 import { useRouter } from 'next/router'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -36,6 +37,15 @@ const ProductsByCat = () => {
     const { id } = router.query;
     const [show, setShow] = useState(true)
     const [product, setProduct] = useState([])
+    const checkLoggedin = () => {
+        const token = localStorage.getItem("CC_Token")
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
+    }
     async function GetProduct() {
         const token = localStorage.getItem("CC_Token")
         await axios
@@ -45,7 +55,15 @@ const ProductsByCat = () => {
             .then(() => setShow(false))
     }
     useEffect(() => {
-        GetProduct()
+
+        const goahead = checkLoggedin()
+        if (goahead == false) {
+            makeToast("error", "You must be logged in")
+            router.push('/login')
+        }
+        else {
+            GetProduct()
+        }
     }, [])
 
     return (

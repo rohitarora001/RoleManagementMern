@@ -15,7 +15,8 @@ import EditCategory from './EditCategory'
 import DeleteCategory from './DeleteCategory';
 import Layout from '../Layout/Layout'
 import { CircularProgress } from '@material-ui/core'
-
+import makeToast from '../../Toaster';
+import { useRouter } from 'next/router'
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
@@ -34,6 +35,7 @@ const useStyles = makeStyles({
 });
 
 const MyCategoryHome = () => {
+    const router = useRouter()
     const classes = useStyles();
     const [Category, setCategory] = useState([]);
     const [show, setShow] = useState(false);
@@ -47,8 +49,25 @@ const MyCategoryHome = () => {
             .then((res) => setCategory(res.data.categories))
             .then(() => setShow(true))
     }
+    const checkLoggedin = () => {
+        const token = localStorage.getItem("CC_Token")
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
+    }
     useEffect(() => {
-        getMyCategories()
+
+        const goahead = checkLoggedin()
+        if (goahead == false) {
+            makeToast("error", "You must be logged in")
+            router.push('/login')
+        }
+        else {
+            getMyCategories()
+        }
     }, [])
     return (
         <>

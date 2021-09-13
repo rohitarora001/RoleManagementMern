@@ -3,11 +3,22 @@ import axios from 'axios'
 import { baseUrl } from '../../next.config'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DeleteUser from './DeleteUser'
+import makeToast from '../../Toaster';
+import { useRouter } from 'next/router'
 
 const AllUsersProfile = () => {
 
     const [Users, setUsers] = useState([])
     const [show, setShow] = useState(false)
+    const checkLoggedin = () => {
+        const token = localStorage.getItem("CC_Token")
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
+    }
     const getAllUsers = async () => {
         const token = localStorage.getItem("CC_Token")
         await axios
@@ -17,7 +28,15 @@ const AllUsersProfile = () => {
             .then(() => setShow(true))
     }
     useEffect(() => {
-        getAllUsers()
+
+        const goahead = checkLoggedin()
+        if (goahead == false) {
+            makeToast("error", "You must be logged in")
+            router.push('/login')
+        }
+        else {
+            getAllUsers()
+        }
     }, [])
     return (
         <>

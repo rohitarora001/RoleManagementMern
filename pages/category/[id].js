@@ -10,6 +10,24 @@ const CategoryDetails = () => {
     const { id } = router.query;
     const [Category, setCategory] = useState([])
     const [show, setShow] = useState(true)
+    const checkLoggedin = () => {
+        const token = localStorage.getItem("CC_Token")
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
+    }
+    const checkLoggedin = () => {
+        const token = localStorage.getItem("CC_Token")
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
+    }
     async function GetCategory() {
         const token = localStorage.getItem("CC_Token")
         await axios
@@ -20,7 +38,15 @@ const CategoryDetails = () => {
 
     }
     useEffect(() => {
-        GetCategory()
+        const goahead = checkLoggedin()
+        if (goahead == false) {
+            makeToast("error", "You must be logged in")
+            router.push('/login')
+        }
+        else {
+            GetCategory()
+        }
+
     }, [])
 
     return (

@@ -14,6 +14,8 @@ import AddProducts from './AddProducts'
 import DeleteProduct from './DeleteProduct';
 import Link from 'next/link';
 import EditProduct from './EditProduct';
+import makeToast from '../../Toaster';
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles({
     root: {
@@ -34,20 +36,43 @@ const useStyles = makeStyles({
 
 const MyProductHome = () => {
     const classes = useStyles();
+    const router = useRouter()
     const [Products, setProducts] = useState([]);
     const [show, setShow] = useState(false);
     const getMyProducts = async () => {
+        try {
+            const token = localStorage.getItem("CC_Token")
+            const user = jwt.verify(token, JWT_SECRET)
+            const id = user.id
+            await axios
+                .get(`https://${baseUrl}api/users/${id}/myproducts`,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+                .then((res) => setProducts(res.data.products))
+                .then(() => setShow(true))
+        }
+        catch (error) {
+            makeToast("error", "You must be logged in")
+        }
+    }
+    const checkLoggedin = () => {
         const token = localStorage.getItem("CC_Token")
-        const user = jwt.verify(token, JWT_SECRET)
-        const id = user.id
-        await axios
-            .get(`https://${baseUrl}api/users/${id}/myproducts`,
-                { headers: { "Authorization": `Bearer ${token}` } })
-            .then((res) => setProducts(res.data.products))
-            .then(() => setShow(true))
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
     }
     useEffect(() => {
-        getMyProducts()
+
+        const goahead = checkLoggedin()
+        if (goahead == false) {
+            makeToast("error", "You must be logged in")
+            router.push('/login')
+        }
+        else {
+            getMyProducts()
+        }
     }, [])
     return (
         <Layout>

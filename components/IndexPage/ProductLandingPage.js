@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { baseUrl } from '../../next.config'
 import Typography from '@material-ui/core/Typography';
+import makeToast from '../../Toaster';
 import { useRouter } from 'next/router'
 
 const ProductLandingPage = ({ id }) => {
     const [product, setProduct] = useState([])
     const router = useRouter();
-    // console.log(product)
     async function GetProduct() {
         const token = localStorage.getItem("CC_Token")
         console.log(id)
@@ -17,8 +17,24 @@ const ProductLandingPage = ({ id }) => {
         setProduct(Data.data.data.data[0])
         console.log(Data.data.data.data[0])
     }
+    const checkLoggedin = () => {
+        const token = localStorage.getItem("CC_Token")
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
+    }
     useEffect(() => {
-        GetProduct()
+        const goahead = checkLoggedin()
+        if (goahead == false) {
+            makeToast("error", "You must be logged in")
+            router.push('/login')
+        }
+        else {
+            GetProduct()
+        }
     }, [])
     return (
         <>

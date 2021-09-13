@@ -12,6 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { JWT_SECRET, baseUrl } from '../../next.config'
 import Link from 'next/link'
 import Layout from '../Layout/Layout'
+import makeToast from '../../Toaster';
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles({
     root: {
@@ -31,6 +33,7 @@ const useStyles = makeStyles({
 });
 const LastViewed = () => {
     const classes = useStyles();
+    const router = useRouter()
     const [products, setProducts] = useState([])
     const [show, setShow] = useState(false)
 
@@ -44,9 +47,27 @@ const LastViewed = () => {
             .then((res) => setProducts(res.data.data.data[0].productsviewed))
             .then(() => setShow(true))
     }
+    const checkLoggedin = () => {
+        const token = localStorage.getItem("CC_Token")
+        if (token === null) {
+            return false;
+        }
+        else {
+            return true
+        }
+    }
     useEffect(() => {
-        getProducts();
+
+        const goahead = checkLoggedin()
+        if (goahead == false) {
+            makeToast("error", "You must be logged in")
+            router.push('/login')
+        }
+        else {
+            getProducts()
+        }
     }, [])
+    
 
     return (
         <Layout>
