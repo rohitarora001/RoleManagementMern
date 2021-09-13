@@ -24,7 +24,6 @@ const DeleteUser = ({ id, getUsers }) => {
                 .then((res) => {
                     if (res.data.status == 200) {
                         getUsers()
-                        handleClose()
                         makeToast("success","User updated successfully")
                     }
                 })
