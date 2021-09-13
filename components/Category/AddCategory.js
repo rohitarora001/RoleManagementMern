@@ -10,7 +10,7 @@ import { baseUrl } from '../../next.config'
 import makeToast from '../../Toaster'
 
 const AddCategory = () => {
-    const [Description, setDescription] = useState(false);
+    const [Description, setDescription] = useState('');
     const [Name, setName] = useState('');
     const [open, setOpen] = useState('');
     const AddCat = async () => {
