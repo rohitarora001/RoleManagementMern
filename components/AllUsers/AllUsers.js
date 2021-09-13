@@ -13,14 +13,20 @@ const AllUsers = () => {
             return true
         }
     }
-    const handleRedirect = () => {
+    const handleRedirect = async () => {
         const goahead = checkLoggedin()
-        if (goahead == false) {
-            makeToast("error", "You must be logged in")
-            router.push('/login')
+        try{
+            if (goahead == false) {
+                makeToast("error", "You must be logged in")
+                router.push('/login')
+            }
+            else {
+                router.push('/users')
+            }
         }
-        else {
-            router.push('/users')
+        catch(e)
+        {
+            return null
         }
     }
 

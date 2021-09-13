@@ -31,6 +31,7 @@ const ViewProfile = () => {
         }
         catch(error){
             makeToast("error","You must be logged in")
+            return null
         }
     }
     const checkLoggedin = () => {

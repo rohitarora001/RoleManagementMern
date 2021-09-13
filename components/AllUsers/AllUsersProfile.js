@@ -7,7 +7,7 @@ import makeToast from '../../Toaster';
 import { useRouter } from 'next/router'
 
 const AllUsersProfile = () => {
-
+    const router = useRouter()
     const [Users, setUsers] = useState([])
     const [show, setShow] = useState(false)
     const checkLoggedin = () => {
