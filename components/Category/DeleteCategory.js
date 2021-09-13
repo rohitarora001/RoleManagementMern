@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { baseUrl } from '../../next.config';
 import makeToast from '../../Toaster'
 import axios from 'axios'
-const DeleteCategory = ({ id }) => {
+const DeleteCategory = ({ id,getCategory }) => {
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
@@ -27,6 +27,7 @@ const DeleteCategory = ({ id }) => {
                         makeToast("warning","You are not authorized because this category is not created by you")
                     }
                     else {
+                        getCategory()
                         handleClose()
                         makeToast("success", "Category successfully deleted")
                     }

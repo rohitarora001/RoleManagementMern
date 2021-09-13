@@ -93,7 +93,7 @@ const MyProductHome = () => {
                     paddingBottom: "10px",
                     // margin: "5px"
                 }}>
-                    <AddProducts />
+                    <AddProducts getProducts={getMyProducts} />
                 </div>
                 <div style={{
                     display: "flex",
@@ -143,10 +143,11 @@ const MyProductHome = () => {
                                                         description={prod.description}
                                                         id={prod._id}
                                                         key={index}
+                                                        getProducts={getMyProducts}
                                                     />
                                                 </CardActions>
                                                 <CardActions key={index}>
-                                                    <DeleteProduct id={prod._id} />
+                                                    <DeleteProduct getProducts={getMyProducts} id={prod._id} />
                                                 </CardActions>
                                             </Card>
                                         </div>

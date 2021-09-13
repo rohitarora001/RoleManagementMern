@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AddProducts = () => {
+const AddProducts = ({getProducts}) => {
 
     const classes = useStyles();
     const [open, setOpen] = useState(false)
@@ -57,6 +57,7 @@ const AddProducts = () => {
             .then((res)=>{
                 if(res.data.status == "ok")
                 {
+                    getProducts()
                     makeToast("success","Product added successfully")
                     // getProducts()
                 }

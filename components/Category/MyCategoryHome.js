@@ -86,7 +86,7 @@ const MyCategoryHome = () => {
                     paddingBottom: "10px",
                     margin: "5px"
                 }}>
-                    <AddCategory />
+                    <AddCategory getCategory={getMyCategories} />
                 </div>
                 <div >
                     <Grid
@@ -123,8 +123,12 @@ const MyCategoryHome = () => {
                                                         <div style={{ display: 'flex' }}>
                                                             <Typography gutterBottom style={{ display: 'flex' }}>
                                                                 {cat.name}
-                                                                <EditCategory name={cat.name} description={cat.description} id={cat._id} />
-                                                                <DeleteCategory id={cat._id} />
+                                                                <EditCategory name={cat.name}
+                                                                    description={cat.description}
+                                                                    id={cat._id}
+                                                                    getCategory={getMyCategories} />
+                                                                <DeleteCategory id={cat._id}
+                                                                    getCategory={getMyCategories} />
                                                             </Typography>
                                                         </div>
                                                         <Typography variant="h5" color="textSecondary" className={classes.title} component="h2">

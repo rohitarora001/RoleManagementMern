@@ -7,7 +7,7 @@ import { baseUrl } from '../../next.config';
 import makeToast from '../../Toaster'
 import axios from 'axios'
 
-const DeleteProduct = ({id}) => {
+const DeleteProduct = ({id , getProducts}) => {
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
@@ -29,6 +29,7 @@ const DeleteProduct = ({id}) => {
                     }
                     else {
                         handleClose()
+                        getProducts()
                         makeToast("success", "Category successfully deleted")
                     }
                 })

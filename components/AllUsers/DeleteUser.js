@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { baseUrl } from '../../next.config';
 import makeToast from '../../Toaster'
 import axios from 'axios'
-const DeleteUser = ({id}) => {
+const DeleteUser = ({ id, getUsers }) => {
     const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
@@ -22,9 +22,10 @@ const DeleteUser = ({id}) => {
                 .delete(`https://${baseUrl}api/users/delete/${id}`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => {
-                    if (res.data.status == 200 ) {
-                        makeToast("success", "User updated successfully")
+                    if (res.data.status == 200) {
+                        getUsers()
                         handleClose()
+                        makeToast("success","User updated successfully")
                     }
                 })
         }
@@ -50,7 +51,11 @@ const DeleteUser = ({id}) => {
             >
                 <DialogTitle id="alert-dialog-title">{"Do you want to delete this category?"}</DialogTitle>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={() => {
+                        console.log(id)
+                        handleClose()
+                    }
+                    } color="primary">
                         Back
                     </Button>
                     <Button color="primary" autoFocus

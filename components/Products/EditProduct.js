@@ -9,7 +9,7 @@ import axios from 'axios'
 import { baseUrl } from '../../next.config'
 import makeToast from '../../Toaster'
 
-const EditProduct = ({ id, name, description,price }) => {
+const EditProduct = ({ id, name, description,price,getProducts }) => {
     const [open, setOpen] = useState(false);
     const [Name, setName] = useState(name);
     const [Price, setPrice] = useState(price);
@@ -44,6 +44,7 @@ const EditProduct = ({ id, name, description,price }) => {
             // console.log(res.data.status)
             handleClose()
             if (res.data.status == "ok") {
+                getProducts()
                 makeToast("success", "Product successfully updated")
             }
         }

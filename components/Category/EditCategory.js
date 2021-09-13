@@ -9,7 +9,7 @@ import axios from 'axios'
 import { baseUrl } from '../../next.config'
 import makeToast from '../../Toaster'
 
-const EditCategory = ({ name, description, id }) => {
+const EditCategory = ({ name, description, id , getCategory }) => {
     const [open, setOpen] = useState(false);
     const [Name, setName] = useState(name);
     const [Description, setDescription] = useState(description);
@@ -42,6 +42,7 @@ const EditCategory = ({ name, description, id }) => {
         // console.log(res.status)
         handleClose()
         if (res.status == 200) {
+            getCategory()
             makeToast("success", "Category successfully updated")
         }
     }

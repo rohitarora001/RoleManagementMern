@@ -9,7 +9,7 @@ import axios from 'axios'
 import { baseUrl } from '../../next.config'
 import makeToast from '../../Toaster'
 
-const AddCategory = () => {
+const AddCategory = ({ getCategory }) => {
     const [Description, setDescription] = useState('');
     const [Name, setName] = useState('');
     const [open, setOpen] = useState('');
@@ -25,6 +25,7 @@ const AddCategory = () => {
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => {
                     if (res.status == 200) {
+                        getCategory()
                         makeToast("success", "The category added successfully")
                     }
                 })

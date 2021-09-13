@@ -93,7 +93,7 @@ const AllUsersProfile = () => {
                                             <div style={{
                                                 margin: "5px",
                                             }}>
-                                                <DeleteUser id={user._id} />
+                                                <DeleteUser id={user._id} getUsers={getAllUsers}/>
                                             </div>
                                         </div>
                                     </div>
