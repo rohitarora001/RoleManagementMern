@@ -19,15 +19,6 @@ const CategoryDetails = () => {
             return true
         }
     }
-    const checkLoggedin = () => {
-        const token = localStorage.getItem("CC_Token")
-        if (token === null) {
-            return false;
-        }
-        else {
-            return true
-        }
-    }
     async function GetCategory() {
         const token = localStorage.getItem("CC_Token")
         await axios
