@@ -22,15 +22,15 @@ const DeleteUser = ({ id, getUsers }) => {
                 .delete(`https://${baseUrl}api/users/delete/${id}`,
                     { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => {
-                    if (res.data.status == 200) {
-                        getUsers()
-                        makeToast("success","User updated successfully")
+                    if (res.status == 200) {
+                        makeToast("success", "User updated successfully")
                     }
+                    getUsers()
                 })
         }
         catch (error) {
-            console.log(error)
             makeToast("error", "Something went wrong")
+            return null
         }
     }
     return (
@@ -58,7 +58,10 @@ const DeleteUser = ({ id, getUsers }) => {
                         Back
                     </Button>
                     <Button color="primary" autoFocus
-                        onClick={deleteUser}>
+                        onClick={() => {
+                            deleteUser()
+                            handleClose()
+                        }}>
                         Delete
                     </Button>
                 </DialogActions>
