@@ -18,7 +18,7 @@ const ViewProfile = () => {
     const [UserId, setUserId] = useState()
     const router = useRouter()
     const getCurrentUser = async () => {
-        try{
+        try {
             const token = localStorage.getItem("CC_Token")
             await axios
                 .get(`https://${baseUrl}api/users/me`,
@@ -29,8 +29,8 @@ const ViewProfile = () => {
                 }
                 )
         }
-        catch(error){
-            makeToast("error","You must be logged in")
+        catch (error) {
+            makeToast("error", "You must be logged in")
             return null
         }
     }
@@ -58,7 +58,7 @@ const ViewProfile = () => {
             <div style={{
                 display: "flex",
                 backgroundColor: "rgb(240,242,245)",
-                borderRadius:"5px"
+                borderRadius: "5px"
             }}>
                 <div>
                     <h1 style={{
@@ -86,7 +86,7 @@ const ViewProfile = () => {
                     <div style={{
                         margin: "5px"
                     }}>
-                        {userRole == 1 || userRole == 2 ?
+                        {userRole == 1 || userRole == 2 || userRole == 4 ?
                             <MyProducts />
                             : null
                         }
@@ -94,7 +94,7 @@ const ViewProfile = () => {
                     <div style={{
                         margin: "5px"
                     }}>
-                        {userRole == 1 || userRole == 2 ?
+                        {userRole == 1 || userRole == 2 || userRole == 4 ?
                             <MyCategory />
                             : null
                         }

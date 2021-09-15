@@ -7,11 +7,6 @@ const Layout = ({ children }) => {
             <div className="Content" >
                 {children}
             </div>
-            <style jsx global>{`
-            .nav {
-                display: "none";
-            }
-            `}</style>
             <div className="nav" style={{
                 width: "100vh"
             }}>

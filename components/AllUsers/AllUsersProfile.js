@@ -5,6 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import DeleteUser from './DeleteUser'
 import makeToast from '../../Toaster';
 import { useRouter } from 'next/router'
+import RevokePermissions from './RevokePermissions';
 
 const AllUsersProfile = () => {
     const router = useRouter()
@@ -91,10 +92,34 @@ const AllUsersProfile = () => {
                                                 Email: {user.email}
                                             </div>
                                             <div style={{
-                                                margin: "5px",
+                                                display: "flex"
                                             }}>
-                                                <DeleteUser id={user._id} getUsers={getAllUsers}/>
+
+                                                <div style={{
+                                                    margin: "5px",
+                                                }}>
+                                                    <DeleteUser id={user._id} getUsers={getAllUsers} />
+                                                </div>
+                                                <div style={{
+                                                    margin: "5px",
+                                                }}>
+                                                    {
+                                                        user.role === 4 ?
+                                                            <RevokePermissions
+                                                                id={user._id}
+                                                                getUsers={getAllUsers}
+                                                                CatEdit={user.canEditCategory}
+                                                                CatAdd={user.canAddCategory}
+                                                                CatDelete={user.canDeleteCategory}
+                                                                ProdEdit={user.canEditProduct}
+                                                                ProdAdd={user.canAddProduct}
+                                                                ProdDelete={user.canDeleteProduct}
+                                                            />
+                                                            : null
+                                                    }
+                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 )

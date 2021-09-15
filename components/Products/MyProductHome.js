@@ -38,7 +38,24 @@ const MyProductHome = () => {
     const classes = useStyles();
     const router = useRouter()
     const [Products, setProducts] = useState([]);
+    const [User, setUser] = useState([])
     const [show, setShow] = useState(false);
+    const getCurrentUser = async () => {
+        try {
+            const token = localStorage.getItem("CC_Token")
+            await axios
+                .get(`https://${baseUrl}api/users/me`,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+                .then((res) => {
+                    setUser(res.data.data)
+                }
+                )
+        }
+        catch (error) {
+            makeToast("error", "You must be logged in")
+            return null
+        }
+    }
     const getMyProducts = async () => {
         try {
             const token = localStorage.getItem("CC_Token")
@@ -71,6 +88,7 @@ const MyProductHome = () => {
             router.push('/login')
         }
         else {
+            getCurrentUser()
             getMyProducts()
         }
     }, [])
@@ -93,7 +111,13 @@ const MyProductHome = () => {
                     paddingBottom: "10px",
                     // margin: "5px"
                 }}>
-                    <AddProducts getProducts={getMyProducts} />
+                    {
+                        User.canAddProduct == true && User.role == 4 ||
+                            User.role == 2 ||
+                            User.role == 1 ?
+                            <AddProducts getProducts={getMyProducts} />
+                            : null
+                    }
                 </div>
                 <div style={{
                     display: "flex",
@@ -120,34 +144,64 @@ const MyProductHome = () => {
                                         }}>
                                             <Card className={classes.root} key={index}>
                                                 <CardContent >
-                                                    <Typography variant="h5" key={index} component="h2">
+                                                    <Typography
+                                                        variant="h5"
+                                                        key={index}
+                                                        component="h2"
+                                                    >
                                                         {prod.name}
                                                     </Typography>
-                                                    <Typography variant="h5" key={index} color="textSecondary" component="h2">
+                                                    <Typography variant="h5"
+                                                        key={index}
+                                                        color="textSecondary"
+                                                        component="h2"
+                                                    >
                                                         {prod.description}
                                                     </Typography>
-                                                    <Typography variant="h5" key={index} color="black" component="h2">
+                                                    <Typography
+                                                        variant="h5"
+                                                        key={index}
+                                                        color="black"
+                                                        component="h2">
                                                         Price : {prod.price}
                                                     </Typography>
-
                                                 </CardContent>
                                                 <CardActions>
                                                     <Link href={'/product/' + prod._id}>
-                                                        <Button size="small" key={index} variant="outlined">View Product</Button>
+                                                        <Button size="small"
+                                                            key={index}
+                                                            variant="outlined"
+                                                        >
+                                                            View Product
+                                                        </Button>
                                                     </Link>
                                                 </CardActions>
                                                 <CardActions key={index}>
-                                                    <EditProduct
-                                                        name={prod.name}
-                                                        price={prod.price}
-                                                        description={prod.description}
-                                                        id={prod._id}
-                                                        key={index}
-                                                        getProducts={getMyProducts}
-                                                    />
+                                                    {
+                                                        User.canEditProduct == true && User.role == 4 ||
+                                                            User.role == 2 ||
+                                                            User.role == 1 ?
+                                                            <EditProduct
+                                                                name={prod.name}
+                                                                price={prod.price}
+                                                                description={prod.description}
+                                                                id={prod._id}
+                                                                key={index}
+                                                                getProducts={getMyProducts}
+                                                            />
+                                                            :
+                                                            null
+                                                    }
                                                 </CardActions>
                                                 <CardActions key={index}>
-                                                    <DeleteProduct getProducts={getMyProducts} id={prod._id} />
+                                                    {
+                                                        User.canDeleteProduct == true && User.role == 4 ||
+                                                            User.role == 2 ||
+                                                            User.role == 1 ?
+                                                            <DeleteProduct getProducts={getMyProducts} id={prod._id} />
+                                                            :
+                                                            null
+                                                    }
                                                 </CardActions>
                                             </Card>
                                         </div>

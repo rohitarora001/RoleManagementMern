@@ -34,9 +34,10 @@ const useStyles = makeStyles({
     },
 });
 
-const MyCategoryHome = () => {
+const MyCategoryHome = ({ liveUser }) => {
     const router = useRouter()
     const classes = useStyles();
+    const [User, setUser] = useState([])
     const [Category, setCategory] = useState([]);
     const [show, setShow] = useState(false);
     const getMyCategories = async () => {
@@ -49,6 +50,22 @@ const MyCategoryHome = () => {
             .then((res) => setCategory(res.data.categories))
             .then(() => setShow(true))
     }
+    const getCurrentUser = async () => {
+        try {
+            const token = localStorage.getItem("CC_Token")
+            await axios
+                .get(`https://${baseUrl}api/users/me`,
+                    { headers: { "Authorization": `Bearer ${token}` } })
+                .then((res) => {
+                    setUser(res.data.data)
+                }
+                )
+        }
+        catch (error) {
+            makeToast("error", "You must be logged in")
+            return null
+        }
+    }
     const checkLoggedin = () => {
         const token = localStorage.getItem("CC_Token")
         if (token === null) {
@@ -59,13 +76,13 @@ const MyCategoryHome = () => {
         }
     }
     useEffect(() => {
-
         const goahead = checkLoggedin()
         if (goahead == false) {
             makeToast("error", "You must be logged in")
             router.push('/login')
         }
         else {
+            getCurrentUser()
             getMyCategories()
         }
     }, [])
@@ -86,7 +103,14 @@ const MyCategoryHome = () => {
                     paddingBottom: "10px",
                     margin: "5px"
                 }}>
-                    <AddCategory getCategory={getMyCategories} />
+                    {
+                        User.canAddCategory == true && User.role == 4 ||
+                            User.role == 1 ||
+                            User.role == 2
+                            ?
+                            <AddCategory getCategory={getMyCategories} />
+                            : null
+                    }
                 </div>
                 <div >
                     <Grid
@@ -108,7 +132,7 @@ const MyCategoryHome = () => {
                                 </div>
                                 :
                                 Category.length === 0 || Category === [] ?
-                                    <h1>No users found</h1>
+                                    <h1>No categories found</h1>
                                     :
                                     Category.map((cat, index) => {
                                         return (
@@ -123,12 +147,29 @@ const MyCategoryHome = () => {
                                                         <div style={{ display: 'flex' }}>
                                                             <Typography gutterBottom style={{ display: 'flex' }}>
                                                                 {cat.name}
-                                                                <EditCategory name={cat.name}
-                                                                    description={cat.description}
-                                                                    id={cat._id}
-                                                                    getCategory={getMyCategories} />
-                                                                <DeleteCategory id={cat._id}
-                                                                    getCategory={getMyCategories} />
+                                                                {
+                                                                    User.canEditCategory == true && User.role == 4 ||
+                                                                        User.role == 1 ||
+                                                                        User.role == 2
+                                                                        ?
+                                                                        <EditCategory name={cat.name}
+                                                                            description={cat.description}
+                                                                            id={cat._id}
+                                                                            getCategory={getMyCategories} />
+                                                                        :
+                                                                        null
+                                                                }
+                                                                {
+                                                                    User.canDeleteCategory == true && User.role == 4 ||
+                                                                        User.role == 1 ||
+                                                                        User.role == 2
+                                                                        ?
+                                                                        <DeleteCategory
+                                                                            id={cat._id}
+                                                                            getCategory={getMyCategories} />
+                                                                        :
+                                                                        null
+                                                                }
                                                             </Typography>
                                                         </div>
                                                         <Typography variant="h5" color="textSecondary" className={classes.title} component="h2">

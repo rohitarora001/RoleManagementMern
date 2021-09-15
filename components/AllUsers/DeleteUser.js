@@ -48,7 +48,7 @@ const DeleteUser = ({ id, getUsers }) => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Do you want to delete this category?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{"Do you want to delete this user?"}</DialogTitle>
                 <DialogActions>
                     <Button onClick={() => {
                         console.log(id)

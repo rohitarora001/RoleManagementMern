@@ -46,7 +46,7 @@ const DeleteCategory = ({ id,getCategory }) => {
             }}>
 
                 <a onClick={handleClickOpen}>
-                    delete
+                    | delete
                 </a>
             </div>
             <Dialog

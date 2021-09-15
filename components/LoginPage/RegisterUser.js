@@ -9,7 +9,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Input from '@material-ui/core/Input';
 import axios from 'axios'
 import { baseUrl } from '../../next.config'
 import makeToast from '../../Toaster'
@@ -52,16 +51,8 @@ const RegisterUser = () => {
                 password: Password,
                 role: Role,
             }
-            // formData.append('firstname', FirstName);
-            // formData.append('lastname', LastName);
-            // formData.append('phone', Phone);
-            // formData.append('email', Email);
-            // formData.append('role', Role);
-            // formData.append('password', Password);
-            // formData.append('avatar', File);
-            // console.log(formData)
             try {
-                await axios.post(`https://${baseUrl}api/auth/register-user`, Data)
+                await axios.post(`https://${baseUrl}api/auth/register-user`, Data,)
                     .then((res) => {
                         if (res.status == 200) {
                             makeToast('success', 'Successfully Registered')
