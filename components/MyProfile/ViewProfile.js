@@ -12,6 +12,7 @@ import MyCategory from '../Category/MyCategory'
 import MyProducts from '../Products/MyProducts'
 import makeToast from '../../Toaster';
 import { useRouter } from 'next/router'
+import CreateUser from './Create User/CreateUser'
 
 const ViewProfile = () => {
     const [userRole, setUserRole] = useState()
@@ -75,6 +76,14 @@ const ViewProfile = () => {
                     right: "15px",
                     top: "30px",
                 }}>
+                    <div style={{
+                        margin: "5px"
+                    }}>
+                        {userRole == 1 ?
+                            <CreateUser />
+                            : null
+                        }
+                    </div>
                     <div style={{
                         margin: "5px"
                     }}>
