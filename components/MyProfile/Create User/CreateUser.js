@@ -49,7 +49,7 @@ const CreateUser = () => {
         }
         try {
             const token = localStorage.getItem("CC_Token")
-            await axios.post(`http://${baseUrl}api/admin/create-user`, data,
+            await axios.post(`https://${baseUrl}api/admin/create-user`, data,
                 { headers: { "Authorization": `Bearer ${token}` } })
                 .then((res) => {
                     if (res.status == 200) {
