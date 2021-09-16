@@ -104,7 +104,7 @@ const AllUsersProfile = () => {
                                                     margin: "5px",
                                                 }}>
                                                     {
-                                                        user.role === 1 ?
+                                                        user.role == 4 ?
                                                             <RevokePermissions
                                                                 id={user._id}
                                                                 getUsers={getAllUsers}
