@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { baseUrl , JWT_SECRET } from '../../next.config';
+import { baseUrl } from '../../next.config';
 import makeToast from '../../Toaster'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -25,7 +25,7 @@ const LoginUser = ({ id }) => {
             const token = localStorage.getItem("CC_Token")
             const myHeaders = { headers: { "Authorization": `Bearer ${token}` } }
             await axios
-                .post(`https://{baseUrl}api/admin/user-login/${id}`, myHeaders)
+                .post(`https://${baseUrl}api/admin/user-login/${id}`, myHeaders)
                 .then((res) => {
                     if (res.status == 200) {
                         const token1  = res.data.token
