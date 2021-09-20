@@ -39,7 +39,9 @@ const LastViewed = () => {
 
     const getProducts = async () => {
         const token = localStorage.getItem("CC_Token")
+        console.log(token)
         const user = jwt.verify(token, JWT_SECRET);
+        console.log(user)
         const id = user.id;
         await axios
             .get(`https://${baseUrl}api/users/${id}/viewedproducts`,

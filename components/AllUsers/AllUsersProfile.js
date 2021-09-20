@@ -6,6 +6,7 @@ import DeleteUser from './DeleteUser'
 import makeToast from '../../Toaster';
 import { useRouter } from 'next/router'
 import RevokePermissions from './RevokePermissions';
+import LoginUser from './LoginUser';
 
 const AllUsersProfile = () => {
     const router = useRouter()
@@ -99,6 +100,11 @@ const AllUsersProfile = () => {
                                                     margin: "5px",
                                                 }}>
                                                     <DeleteUser id={user._id} getUsers={getAllUsers} />
+                                                </div>
+                                                <div style={{
+                                                    margin: "5px",
+                                                }}>
+                                                    <LoginUser id={user._id} />
                                                 </div>
                                                 <div style={{
                                                     margin: "5px",
